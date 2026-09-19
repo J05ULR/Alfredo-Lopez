@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="es" class="h-full bg-slate-950 font-sans text-slate-100 antialiased">
+<html lang="es" class="h-full bg-slate-950 font-sans text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alfredo López García - Tarjeta Digital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Alfredo López García - Tarjeta Digital joimax®</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts Inter & Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,600;0,900;1,600&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -33,85 +33,114 @@
         }
     </script>
     <style>
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
         ::-webkit-scrollbar-track { background: #0a192f; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+        ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
 
-        /* Abanico / Fan Deck CSS animations */
+        /* Contenedor Abanico Adaptativo */
+        .fan-deck-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            touch-action: pan-y;
+        }
+
         .fan-deck {
             position: relative;
-            min-height: 280px;
+            width: 100%;
+            max-width: 320px;
+            height: 280px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
             perspective: 1000px;
+            touch-action: pan-y;
+            user-select: none;
         }
 
         .fan-card {
             position: absolute;
-            width: 240px;
+            width: 200px;
             height: 250px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
             transform-origin: bottom center;
             cursor: pointer;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.6);
+            will-change: transform;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Default stack fan angles */
-        .fan-deck .fan-card:nth-child(1) { transform: rotate(-12deg) translateX(-35px); z-index: 1; }
-        .fan-deck .fan-card:nth-child(2) { transform: rotate(-6deg) translateX(-18px); z-index: 2; }
+        @media (min-width: 640px) {
+            .fan-deck { max-width: 480px; height: 310px; }
+            .fan-card { width: 230px; height: 270px; }
+        }
+
+        /* Posiciones en reposo (Apilado ligero) */
+        .fan-deck .fan-card:nth-child(1) { transform: rotate(-10deg) translateX(-20px); z-index: 1; }
+        .fan-deck .fan-card:nth-child(2) { transform: rotate(-5deg) translateX(-10px); z-index: 2; }
         .fan-deck .fan-card:nth-child(3) { transform: rotate(0deg) translateX(0px); z-index: 3; }
-        .fan-deck .fan-card:nth-child(4) { transform: rotate(6deg) translateX(18px); z-index: 4; }
-        .fan-deck .fan-card:nth-child(5) { transform: rotate(12deg) translateX(35px); z-index: 5; }
-        .fan-deck .fan-card:nth-child(6) { transform: rotate(18deg) translateX(52px); z-index: 6; }
-        .fan-deck .fan-card:nth-child(7) { transform: rotate(24deg) translateX(70px); z-index: 7; }
+        .fan-deck .fan-card:nth-child(4) { transform: rotate(5deg) translateX(10px); z-index: 4; }
+        .fan-deck .fan-card:nth-child(5) { transform: rotate(10deg) translateX(20px); z-index: 5; }
+        .fan-deck .fan-card:nth-child(6) { transform: rotate(15deg) translateX(30px); z-index: 6; }
+        .fan-deck .fan-card:nth-child(7) { transform: rotate(20deg) translateX(40px); z-index: 7; }
 
-        /* Hover or active expansion effect on the whole fan container */
-        .fan-deck:hover .fan-card:nth-child(1), .fan-deck.expanded .fan-card:nth-child(1) { transform: rotate(-24deg) translateX(-110px) translateY(-10px); }
-        .fan-deck:hover .fan-card:nth-child(2), .fan-deck.expanded .fan-card:nth-child(2) { transform: rotate(-16deg) translateX(-70px) translateY(-5px); }
-        .fan-deck:hover .fan-card:nth-child(3), .fan-deck.expanded .fan-card:nth-child(3) { transform: rotate(-8deg) translateX(-30px); }
-        .fan-deck:hover .fan-card:nth-child(4), .fan-deck.expanded .fan-card:nth-child(4) { transform: rotate(0deg) translateX(10px); }
-        .fan-deck:hover .fan-card:nth-child(5), .fan-deck.expanded .fan-card:nth-child(5) { transform: rotate(8deg) translateX(50px); }
-        .fan-deck:hover .fan-card:nth-child(6), .fan-deck.expanded .fan-card:nth-child(6) { transform: rotate(16deg) translateX(90px) translateY(-5px); }
-        .fan-deck:hover .fan-card:nth-child(7), .fan-deck.expanded .fan-card:nth-child(7) { transform: rotate(24deg) translateX(130px) translateY(-10px); }
+        /* Despliegue en Hover (PC) o clase .expanded (Tap/Swipe en Móvil) */
+        .fan-deck:hover .fan-card:nth-child(1), .fan-deck.expanded .fan-card:nth-child(1) { transform: rotate(-22deg) translateX(-85px) translateY(-8px); }
+        .fan-deck:hover .fan-card:nth-child(2), .fan-deck.expanded .fan-card:nth-child(2) { transform: rotate(-14deg) translateX(-55px) translateY(-4px); }
+        .fan-deck:hover .fan-card:nth-child(3), .fan-deck.expanded .fan-card:nth-child(3) { transform: rotate(-7deg) translateX(-25px); }
+        .fan-deck:hover .fan-card:nth-child(4), .fan-deck.expanded .fan-card:nth-child(4) { transform: rotate(0deg) translateX(5px); }
+        .fan-deck:hover .fan-card:nth-child(5), .fan-deck.expanded .fan-card:nth-child(5) { transform: rotate(7deg) translateX(35px); }
+        .fan-deck:hover .fan-card:nth-child(6), .fan-deck.expanded .fan-card:nth-child(6) { transform: rotate(14deg) translateX(65px) translateY(-4px); }
+        .fan-deck:hover .fan-card:nth-child(7), .fan-deck.expanded .fan-card:nth-child(7) { transform: rotate(22deg) translateX(95px) translateY(-8px); }
 
-        /* Individual Card Focus on Hover */
-        .fan-card:hover {
-            z-index: 30 !important;
-            transform: scale(1.12) translateY(-20px) rotate(0deg) !important;
-            box-shadow: 0 20px 30px -10px rgba(0, 102, 204, 0.6);
+        /* Tarjeta Activa/Focus al rotar con Swipe */
+        .fan-card.active-swipe-card {
+            z-index: 50 !important;
+            transform: scale(1.12) translateY(-25px) rotate(0deg) !important;
+            box-shadow: 0 20px 30px -10px rgba(0, 102, 204, 0.9);
             border-color: #64ffda !important;
         }
 
-        /* Glassmorphism styling */
+        /* Enfocar tarjeta individual al pasar sobre ella */
+        .fan-card:hover, .fan-card:active {
+            z-index: 40 !important;
+            transform: scale(1.1) translateY(-25px) rotate(0deg) !important;
+            box-shadow: 0 20px 30px -10px rgba(0, 102, 204, 0.8);
+            border-color: #64ffda !important;
+        }
+
+        /* Glassmorphism */
         .glass-panel {
             background: rgba(17, 34, 64, 0.85);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(100, 255, 218, 0.15);
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-medical-accent selection:text-white">
 
-    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-md">
+    <!-- Header Fijo -->
+    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 to-cyan-500 flex items-center justify-center font-black text-white text-lg shadow-lg">
-                    AL
-                </div>
-                <div>
-                    <h1 class="text-sm font-black text-white tracking-tight leading-none">ALFREDO LÓPEZ GARCÍA</h1>
-                    <p class="text-[11px] font-semibold text-medical-cyan">joimax® GmbH • Specialist</p>
+                <a href="https://www.mava.com.mx/" target="_blank" class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-md flex-shrink-0 transition transform hover:scale-105">
+                    <img src="Gemini_Generated_Image_uammr8uammr8uamm.jpg" alt="MAVA Solución Real" class="w-full h-full object-contain">
+                </a>
+                <div class="truncate">
+                    <h1 class="text-xs sm:text-sm font-black text-white tracking-tight leading-none truncate">ALFREDO LÓPEZ GARCÍA</h1>
+                    <p class="text-[10px] sm:text-[11px] font-semibold text-medical-cyan truncate">Comercializadora Medica MAVA</p>
                 </div>
             </div>
 
-            <div class="flex items-center space-x-2">
-                <button onclick="openQrModal()" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition" title="Ver QR">
-                    <i class="fa-solid fa-qrcode text-base"></i>
-                </button>
-                <button onclick="downloadVCard()" class="px-3 py-2 bg-medical-accent hover:bg-blue-600 text-white text-xs font-bold rounded-xl shadow-lg flex items-center gap-2 transition">
+            <div class="flex items-center space-x-2 flex-shrink-0">
+                <button onclick="downloadVCard()" class="px-3 py-2 bg-medical-accent hover:bg-blue-600 text-white text-xs font-bold rounded-xl shadow-lg flex items-center gap-1.5 transition active:scale-95">
                     <i class="fa-solid fa-vcard"></i>
                     <span class="hidden sm:inline">Guardar Contacto</span>
                 </button>
@@ -119,443 +148,435 @@
         </div>
     </header>
 
-    <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-6 space-y-8">
+    <!-- Contenido Principal -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6 sm:space-y-8">
 
-        <section class="glass-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-2xl border border-slate-800">
-            <!-- Background Accent Glows -->
+        <!-- Perfil y Datos Principales -->
+        <section class="glass-panel rounded-2xl sm:rounded-3xl p-4 sm:p-8 relative overflow-hidden shadow-2xl border border-slate-800">
             <div class="absolute -top-24 -right-24 w-72 h-72 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center relative z-10">
                 
-                <!-- Profile Avatar & Certification Badge -->
+                <!-- Avatar & Certificado -->
                 <div class="lg:col-span-4 flex flex-col items-center text-center">
                     <div class="relative">
-                        <div class="w-40 h-40 sm:w-44 sm:h-44 rounded-3xl p-1 bg-gradient-to-b from-cyan-400 via-blue-600 to-slate-900 shadow-2xl flex items-center justify-center overflow-hidden">
-                            <!-- Facebook Profile Image -->
+                        <div class="w-36 h-36 sm:w-44 sm:h-44 rounded-3xl p-1 bg-gradient-to-b from-cyan-400 via-blue-600 to-slate-900 shadow-2xl flex items-center justify-center overflow-hidden">
                             <img src="https://scontent.fmex5-1.fna.fbcdn.net/v/t39.30808-6/814800592_2630024717467400_703187913141889583_n.jpg?stp=dst-jpg_tt6&cstp=mx896x1195&ctp=s704x704&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEfDR-guk6Si12IB70S5nn5bRfE1LU1CKhtF8TUtTUIqLXUt9ApJt6YkJcNpirrwSv-w0mx1UcPWbft8Qph2q09&_nc_ohc=cKojGuwTJ98Q7kNvwEXrMik&_nc_oc=AdogEJwysck_pe9toMBe_fmdAA6fLxP7h6glmZET5NlRUIA1IWUuGkMUjaGqZzfo9l4hVK3nMRePISkSCf51fL6E&_nc_zt=23&_nc_ht=scontent.fmex5-1.fna&_nc_gid=gq03xRrFFeiNplHgz_KxwA&_nc_ss=7b2a8&oh=00_AQKHn1xHY2aUswoPDB2J1CG96rsmac5U18g3h5iFocN9BQ&oe=6AB2AC57" alt="Alfredo López García" class="w-full h-full object-cover rounded-[22px]">
                         </div>
-                        <span class="absolute bottom-2 right-2 bg-emerald-500 border-2 border-slate-900 w-5 h-5 rounded-full" title="Disponible para Soporte en Quirófano"></span>
+                        <span class="absolute bottom-2 right-2 bg-emerald-500 border-2 border-slate-900 w-4 h-4 sm:w-5 sm:h-5 rounded-full" title="Disponible para Soporte"></span>
                     </div>
 
-                    <!-- Certification Seal Badge -->
-                    <div class="mt-4 bg-slate-900/90 border border-medical-border rounded-2xl p-3 w-full max-w-xs shadow-md flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl flex-shrink-0">
+                    <div class="mt-4 bg-slate-900/90 border border-medical-border rounded-2xl p-2.5 sm:p-3 w-full max-w-xs shadow-md flex items-center gap-3">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg sm:text-xl flex-shrink-0">
                             <i class="fa-solid fa-certificate"></i>
                         </div>
                         <div class="text-left text-xs">
-                            <p class="text-[10px] uppercase font-bold text-slate-400">Certificado por</p>
-                            <p class="font-extrabold text-white">joimax® GmbH <span class="text-sm">🇩🇪</span></p>
-                            <p class="text-[10px] text-medical-cyan">Product Training (Basic & Intermediate)</p>
+                            <p class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400">Certificado por</p>
+                            <p class="font-extrabold text-white text-xs sm:text-sm">joimax® GmbH <span class="text-xs">🇩🇪</span></p>
+                            <p class="text-[9px] sm:text-[10px] text-medical-cyan">Product Training Specialist</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Bio & Primary Actions -->
-                <div class="lg:col-span-8 space-y-5">
-                    <div class="space-y-2 text-center lg:text-left">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-medical-cyan text-xs font-semibold">
-                            <i class="fa-solid fa-user-gear"></i> Soporte Especializado en Cirugía de Columna
+                <!-- Detalles e Interacción -->
+                <div class="lg:col-span-8 space-y-4 sm:space-y-5">
+                    <div class="space-y-1.5 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-medical-cyan text-[11px] sm:text-xs font-semibold">
+                            <i class="fa-solid fa-user-gear"></i> Soporte Especializado en Quirófano
                         </div>
-                        <h2 class="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
+                        <h2 class="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight">
                             ALFREDO LÓPEZ GARCÍA
                         </h2>
-                        <p class="text-base sm:text-lg font-bold text-slate-300">
-                            TÉCNICO EN ENDOSCOPIA
+                        <p class="text-sm sm:text-lg font-bold text-slate-300">
+                            TÉCNICO EN ENDOSCOPIA DE COLUMNA
                         </p>
                         <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-2xl">
-                            Especialista en soporte técnico de cirugía endoscópica de columna con plataforma tecnológica joimax®. Acompañamiento en quirófano, armado de torre NAVENTO®, instrumental y calibración en tiempo real.
+                            Especialista en soporte para cirugía endoscópica de columna con tecnología joimax®. Acompañamiento integral en quirófano, ensamble de torre NAVENTO®, calibración e instrumental en tiempo real.
                         </p>
                     </div>
 
-                    <!-- Quick Contact Buttons -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                        <a href="tel:+525545992601" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 transition group">
-                            <i class="fa-solid fa-phone text-emerald-400 text-lg mb-1 group-hover:scale-110 transition"></i>
-                            <span class="text-[10px] text-slate-400">Llamar</span>
-                            <span class="text-xs font-bold text-white truncate max-w-full">+52 55 4599 2601</span>
+                    <!-- Botones de Contacto -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
+                        <a href="tel:+525545992601" class="flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 transition active:scale-95 group">
+                            <i class="fa-solid fa-phone text-emerald-400 text-base sm:text-lg mb-1 group-hover:scale-110 transition"></i>
+                            <span class="text-[9px] sm:text-[10px] text-slate-400">Llamar</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-white truncate max-w-full">+52 55 4599 2601</span>
                         </a>
 
-                        <a href="https://wa.me/525545992601?text=Hola%20Alfredo,%20requiero%20soporte%20técnico%20de%20joimax" target="_blank" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-emerald-400/50 transition group">
-                            <i class="fa-brands fa-whatsapp text-emerald-500 text-lg mb-1 group-hover:scale-110 transition"></i>
-                            <span class="text-[10px] text-slate-400">WhatsApp</span>
-                            <span class="text-xs font-bold text-white">Enviar Mensaje</span>
+                        <a href="https://wa.me/525545992601?text=Hola%20Alfredo,%20requiero%20soporte%20técnico%20de%20joimax" target="_blank" class="flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-emerald-400/50 transition active:scale-95 group">
+                            <i class="fa-brands fa-whatsapp text-emerald-500 text-base sm:text-lg mb-1 group-hover:scale-110 transition"></i>
+                            <span class="text-[9px] sm:text-[10px] text-slate-400">WhatsApp</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-white truncate">Enviar Mensaje</span>
                         </a>
 
-                        <a href="mailto:alopez@mava.com.mx" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-medical-accent/50 transition group">
-                            <i class="fa-solid fa-envelope text-medical-cyan text-lg mb-1 group-hover:scale-110 transition"></i>
-                            <span class="text-[10px] text-slate-400">Correo</span>
-                            <span class="text-xs font-bold text-white truncate max-w-full">alopez@mava.com.mx</span>
+                        <a href="mailto:alopez@mava.com.mx" class="flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-medical-accent/50 transition active:scale-95 group">
+                            <i class="fa-solid fa-envelope text-medical-cyan text-base sm:text-lg mb-1 group-hover:scale-110 transition"></i>
+                            <span class="text-[9px] sm:text-[10px] text-slate-400">Correo</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-white truncate max-w-full">alopez@mava.com.mx</span>
                         </a>
 
-                        <div class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900 border border-slate-800">
-                            <i class="fa-solid fa-location-dot text-rose-400 text-lg mb-1"></i>
-                            <span class="text-[10px] text-slate-400">Ubicación</span>
-                            <span class="text-xs font-bold text-white">México</span>
-                        </div>
+                        <!-- Botón LinkedIn -->
+                        <a href="https://www.linkedin.com" target="_blank" class="flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-blue-400/50 transition active:scale-95 group">
+                            <i class="fa-brands fa-linkedin text-blue-400 text-base sm:text-lg mb-1 group-hover:scale-110 transition"></i>
+                            <span class="text-[9px] sm:text-[10px] text-slate-400">Perfil Profesional</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-white truncate">LinkedIn</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="glass-panel rounded-2xl p-5 border border-slate-800 space-y-4">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <!-- Barra de Búsqueda y Filtros -->
+        <section class="glass-panel rounded-2xl p-4 sm:p-5 border border-slate-800 space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
                 <div>
-                    <h3 class="text-xl font-black text-white flex items-center gap-2">
+                    <h3 class="text-lg sm:text-xl font-black text-white flex items-center gap-2">
                         <i class="fa-solid fa-layer-group text-medical-cyan"></i>
-                        Portafolio Joimax®
+                        Portafolio joimax®
                     </h3>
-                    <p class="text-xs text-slate-400">Pasa el cursor o toca cada abanico para desplegar los sistemas. Haz clic para ver el desglose técnico completo.</p>
+                    <p class="text-[11px] sm:text-xs text-slate-400">Desliza a la izquierda o derecha sobre el abanico para rotar las tarjetas o tócalas para ver detalles.</p>
                 </div>
 
-                <!-- Interactive Search Field -->
+                <!-- Buscador -->
                 <div class="relative w-full md:w-80">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
-                    <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Buscar: hernia, TESSYS, 4K, radiofrecuencia..." 
-                        class="w-full pl-9 pr-9 py-2.5 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-medical-accent transition">
+                    <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Buscar: hernia, TESSYS, 4K, RF..." 
+                        class="w-full pl-9 pr-9 py-2 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-medical-accent transition">
                     <button id="clearSearch" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white text-xs">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- View Switcher Tabs -->
+            <!-- Selector de Vista -->
             <div class="flex items-center space-x-2 border-b border-slate-800 pb-3 overflow-x-auto text-xs">
-                <button onclick="switchView('fan')" id="btnViewFan" class="px-4 py-2 rounded-xl font-bold bg-medical-accent text-white transition flex items-center gap-2">
-                    <i class="fa-solid fa-fan"></i> Vista Abanico (Fan Deck)
+                <button onclick="switchView('fan')" id="btnViewFan" class="px-3.5 py-1.5 rounded-xl font-bold bg-medical-accent text-white transition flex items-center gap-2 whitespace-nowrap active:scale-95">
+                    <i class="fa-solid fa-fan"></i> Vista Abanico
                 </button>
-                <button onclick="switchView('grid')" id="btnViewGrid" class="px-4 py-2 rounded-xl font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2">
+                <button onclick="switchView('grid')" id="btnViewGrid" class="px-3.5 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 whitespace-nowrap active:scale-95">
                     <i class="fa-solid fa-grip"></i> Vista Cuadrícula
                 </button>
             </div>
         </section>
 
-        <section id="catalogContainer" class="space-y-10">
-            <!-- Dynamic sections will render here -->
+        <!-- Catálogo Dinámico -->
+        <section id="catalogContainer" class="space-y-8 sm:space-y-10">
+            <!-- Renderizado dinámico -->
         </section>
 
     </main>
 
-    <div id="productModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
-        <div class="bg-slate-900 w-full max-w-2xl rounded-3xl border border-slate-700 shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="modalContent">
+    <!-- Modal Detalle del Producto -->
+    <div id="productModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-900 w-full max-w-2xl rounded-2xl sm:rounded-3xl border border-slate-700 shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="modalContent">
             
-            <!-- Modal Header -->
-            <div class="px-6 py-4 bg-slate-800 border-b border-slate-700 flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div id="modalIcon" class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-xl text-medical-cyan">
+            <div class="px-4 sm:px-6 py-3.5 bg-slate-800 border-b border-slate-700 flex items-center justify-between">
+                <div class="flex items-center space-x-3 truncate pr-2">
+                    <div id="modalIcon" class="w-9 h-9 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-lg text-medical-cyan flex-shrink-0">
                         <i class="fa-solid fa-cube"></i>
                     </div>
-                    <div>
-                        <span id="modalCategoryBadge" class="text-[10px] uppercase font-black tracking-wider text-medical-cyan"></span>
-                        <h3 id="modalTitle" class="text-xl font-black text-white leading-tight"></h3>
+                    <div class="truncate">
+                        <span id="modalCategoryBadge" class="text-[9px] sm:text-[10px] uppercase font-black tracking-wider text-medical-cyan block truncate"></span>
+                        <h3 id="modalTitle" class="text-base sm:text-xl font-black text-white leading-tight truncate"></h3>
                     </div>
                 </div>
-                <button onclick="closeProductModal()" class="w-8 h-8 rounded-full bg-slate-700 hover:bg-slate-600 text-slate-300 flex items-center justify-center transition">
+                <button onclick="closeProductModal()" class="w-8 h-8 rounded-full bg-slate-700 hover:bg-slate-600 text-slate-300 flex items-center justify-center transition flex-shrink-0">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
-            <!-- Modal Body (Scrollable) -->
-            <div class="p-6 overflow-y-auto space-y-6 flex-1 text-slate-300 text-xs sm:text-sm">
-                
-                <!-- Product Image Banner -->
-                <div id="modalImageContainer" class="w-full h-48 rounded-2xl bg-slate-950 border border-slate-800 p-4 flex items-center justify-center overflow-hidden relative">
+            <div class="p-4 sm:p-6 overflow-y-auto space-y-4 sm:space-y-6 flex-1 text-slate-300 text-xs sm:text-sm">
+                <div id="modalImageContainer" class="w-full h-40 sm:h-48 rounded-xl sm:rounded-2xl bg-slate-950 border border-slate-800 p-3 flex items-center justify-center overflow-hidden">
                     <img id="modalImage" src="" alt="joimax product" class="max-h-full max-w-full object-contain filter drop-shadow-lg" />
                 </div>
 
-                <p id="modalDescription" class="leading-relaxed text-slate-300 border-b border-slate-800 pb-4"></p>
+                <p id="modalDescription" class="leading-relaxed text-slate-300 border-b border-slate-800 pb-3 sm:pb-4 text-xs sm:text-sm"></p>
 
-                <!-- Subproducts -->
-                <div id="modalSubproductsSection" class="space-y-3">
+                <div id="modalSubproductsSection" class="space-y-2.5">
                     <h4 class="text-xs font-bold uppercase tracking-wider text-medical-cyan flex items-center gap-2">
-                        <i class="fa-solid fa-sitemap"></i> Subproductos y Componentes Incluidos
+                        <i class="fa-solid fa-sitemap"></i> Componentes e Instrumental
                     </h4>
-                    <div id="modalSubproductsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                        <!-- Dynamic items -->
+                    <div id="modalSubproductsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <!-- Items -->
                     </div>
                 </div>
 
-                <!-- Indications -->
-                <div id="modalIndicationsSection" class="space-y-3">
+                <div id="modalIndicationsSection" class="space-y-2.5">
                     <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-2">
-                        <i class="fa-solid fa-notes-medical"></i> Indicaciones Clínicas Principales
+                        <i class="fa-solid fa-notes-medical"></i> Indicaciones Clínicas
                     </h4>
-                    <ul id="modalIndicationsList" class="flex flex-wrap gap-2">
-                        <!-- Dynamic items -->
+                    <ul id="modalIndicationsList" class="flex flex-wrap gap-1.5">
+                        <!-- Items -->
                     </ul>
                 </div>
 
-                <!-- Tech Note -->
-                <div class="p-3 bg-blue-950/40 border border-blue-800/40 rounded-xl text-xs text-slate-400 flex items-start gap-2.5">
-                    <i class="fa-solid fa-shield-halved text-medical-cyan text-sm mt-0.5"></i>
-                    <span>Configuración en quirófano y soporte técnico personalizado por <strong>Alfredo López García</strong>.</span>
+                <div class="p-3 bg-blue-950/40 border border-blue-800/40 rounded-xl text-[11px] sm:text-xs text-slate-400 flex items-start gap-2">
+                    <i class="fa-solid fa-shield-halved text-medical-cyan text-sm mt-0.5 flex-shrink-0"></i>
+                    <span>Configuración en quirófano y soporte por <strong>Alfredo López García</strong>.</span>
                 </div>
             </div>
 
-            <!-- Modal Footer -->
-            <div class="px-6 py-3 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-xs text-slate-500">
-                <span>joimax® GmbH • Endoscopic Spine Experts</span>
-                <button onclick="closeProductModal()" class="px-4 py-2 bg-medical-accent hover:bg-blue-600 text-white font-bold rounded-xl transition">
+            <div class="px-4 sm:px-6 py-3 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-[11px] sm:text-xs text-slate-500">
+                <span>joimax® GmbH • Endoscopic Spine</span>
+                <button onclick="closeProductModal()" class="px-3.5 py-1.5 bg-medical-accent hover:bg-blue-600 text-white font-bold rounded-xl transition">
                     Cerrar
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="qrModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center max-w-sm w-full shadow-2xl space-y-4">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h4 class="font-bold text-white text-base">Contacto Alfredo López</h4>
-                <button onclick="closeQrModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <div class="p-4 bg-white rounded-2xl inline-block shadow-inner">
-                <!-- SVG QR Code Representation -->
-                <svg class="w-48 h-48 mx-auto" viewBox="0 0 100 100" fill="none">
-                    <rect width="100" height="100" fill="white"/>
-                    <path d="M10 10 h25 v25 h-25 z M15 15 h15 v15 h-15 z M20 20 h5 v5 h-5 z" fill="#0a192f"/>
-                    <path d="M65 10 h25 v25 h-25 z M70 15 h15 v15 h-15 z M75 20 h5 v5 h-5 z" fill="#0a192f"/>
-                    <path d="M10 65 h25 v25 h-25 z M15 70 h15 v15 h-15 z M20 75 h5 v5 h-5 z" fill="#0a192f"/>
-                    <path d="M45 10 h10 v10 h-10 z M55 20 h10 v10 h-10 z M40 30 h15 v10 h-15 z M10 45 h15 v10 h-15 z M30 45 h15 v10 h-15 z M50 45 h20 v10 h-20 z M75 45 h15 v15 h-15 z M45 65 h10 v20 h-10 z M60 65 h15 v10 h-15 z M75 70 h15 v10 h-15 z M60 80 h25 v10 h-25 z" fill="#0a192f"/>
+    <!-- FOOTER -->
+    <footer class="mt-auto py-8 bg-slate-950 border-t border-slate-900 flex justify-center items-center">
+        <div class="footer-credits flex flex-col items-center gap-2 text-center">
+            <span class="text-xs font-medium text-slate-500 uppercase tracking-widest">created by</span>
+            <a href="https://j05ulr.github.io/ZeroSystems/" target="_blank" rel="noopener noreferrer" class="zero-systems-logo inline-block transition-transform hover:scale-105 opacity-80 hover:opacity-100">
+                <svg class="zero-systems-svg w-48 sm:w-56 h-auto" viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Iso/Icono Zero Systems -->
+                    <g fill="#FFFFFF">
+                        <path d="M20,65 L110,65 C125,65 130,58 135,48 L142,32 C145,25 140,20 128,20 L40,20 C25,20 20,27 15,37 L8,52 C5,59 10,65 20,65 Z" />
+                        <path d="M50,95 L140,95 C155,95 160,88 165,78 L172,62 C175,55 170,50 158,50 L70,50 C55,50 50,57 45,67 L38,82 C35,89 40,95 50,95 Z" />
+                        <path d="M140,15 L52,105" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+                    </g>
+                    <!-- Texto Marca -->
+                    <text x="180" y="62" font-family="'Montserrat', 'Arial Black', sans-serif" font-weight="900" font-size="40" fill="#FFFFFF" letter-spacing="3">ZERO SYSTEMS</text>
+                    <text x="183" y="94" font-family="'Montserrat', sans-serif" font-weight="600" font-style="italic" font-size="22" fill="#E0E0E0" letter-spacing="8">CERO LÍMITES</text>
                 </svg>
-            </div>
-            <p class="text-xs text-slate-400">Escanea para añadir directamente a tu agenda de contactos.</p>
-            <button onclick="closeQrModal()" class="w-full py-2.5 bg-medical-accent hover:bg-blue-600 text-white rounded-xl text-xs font-bold transition">Cerrar</button>
+            </a>
         </div>
-    </div>
+    </footer>
 
     <script>
-        // Catalog data structured into the 3 requested main sections
         const catalogData = [
             {
                 sectionId: 'sec-tecnicas',
                 sectionTitle: '1. TÉCNICAS PRINCIPALES',
-                sectionSubtitle: 'Sistemas completos de acceso endoscópico vertebral',
+                sectionSubtitle: 'Sistemas de acceso endoscópico vertebral',
                 items: [
                     {
                         id: 'tessys',
                         title: 'TESSYS®',
                         code: 'TRANSFORAMINAL',
-                        subtitle: 'Sistema Endoscópico Transforaminal',
+                        subtitle: 'Acceso Transforaminal',
                         icon: 'fa-bone',
                         img: 'https://www.joimax.com/wp-content/uploads/2020/09/TESSYS_Product.png',
-                        description: 'Acceso lateral directo a través del foramen (Triángulo de Kambin). Descompresión completa de hernias discales y estenosis sin afectar la estabilidad de la columna.',
+                        description: 'Acceso lateral directo a través del foramen (Triángulo de Kambin). Descompresión de hernias discales y estenosis sin desestabilizar la columna.',
                         subproducts: [
-                            { name: 'TESSYS® Std', desc: 'Sistema estándar con instrumental de acceso, reamers, dilatadores y pinzas.' },
-                            { name: 'TESSYS® XT', desc: 'Versión con instrumental de mayor alcance para anatomías complejas.' },
-                            { name: 'TESSYS® Thx', desc: 'Adaptado específicamente para la región torácica.' },
-                            { name: 'TESSYS® TransSAP', desc: 'Acceso dirigido al proceso articular superior (SAP).' }
+                            { name: 'TESSYS® Std', desc: 'Sistema estándar con dilatadores y reamers.' },
+                            { name: 'TESSYS® XT', desc: 'Instrumental extendido para anatomías complejas.' },
+                            { name: 'TESSYS® Thx', desc: 'Adaptado para región torácica.' },
+                            { name: 'TESSYS® TransSAP', desc: 'Acceso al proceso articular superior.' }
                         ],
-                        indications: ['Hernia discal lumbar', 'Estenosis foraminal', 'Estenosis del receso lateral', 'Lesiones extraforaminales', 'Dolor radicular']
+                        indications: ['Hernia discal lumbar', 'Estenosis foraminal', 'Estenosis recesal']
                     },
                     {
                         id: 'ilessys',
                         title: 'iLESSYS®',
                         code: 'INTERLAMINAR',
-                        subtitle: 'Sistema Endoscópico Interlaminar',
+                        subtitle: 'Acceso Interlaminar',
                         icon: 'fa-layer-group',
                         img: 'https://www.joimax.com/wp-content/uploads/2020/09/iLESSYS_Product.png',
-                        description: 'Acceso posterior por ventana interlaminar. Ideal para la descompresión del canal central, recesos laterales y técnica Over-the-Top.',
+                        description: 'Acceso posterior interlaminar. Ideal para descompresión del canal central, recesos laterales y técnica Over-the-Top.',
                         subproducts: [
-                            { name: 'iLESSYS® Standard', desc: 'Descompresión interlaminar directa y remoción discal.' },
-                            { name: 'iLESSYS® Pro', desc: 'Descompresión contralateral y bilateral (ULBD).' },
-                            { name: 'iLESSYS® Delta', desc: 'Especial para estenosis central severa y fusión interlaminar.' },
-                            { name: 'iLESSYS® Biportal', desc: 'Sistema para técnica endoscópica biportal.' }
+                            { name: 'iLESSYS® Standard', desc: 'Descompresión interlaminar directa.' },
+                            { name: 'iLESSYS® Pro', desc: 'Descompresión contralateral (ULBD).' },
+                            { name: 'iLESSYS® Delta', desc: 'Estenosis central severa y fusión.' },
+                            { name: 'iLESSYS® Biportal', desc: 'Soporte para técnica biportal.' }
                         ],
-                        indications: ['Hernia discal posterior', 'Estenosis del canal central', 'Descompresión bilateral', 'Estenosis recesal']
+                        indications: ['Hernia discal posterior', 'Estenosis central', 'ULBD']
                     },
                     {
                         id: 'multizyte',
                         title: 'MultiZYTE®',
-                        code: 'TERAPIA DEL DOLOR',
-                        subtitle: 'Terapia Endoscópica del Dolor',
+                        code: 'DOLOR',
+                        subtitle: 'Terapia del Dolor Facetario y SI',
                         icon: 'fa-wave-square',
                         img: 'https://www.joimax.com/wp-content/uploads/2020/09/MultiZYTE_Product.png',
-                        description: 'Intervención endoscópica directa sobre facetas articulares y la articulación sacroilíaca para denervación y alivio de dolor crónico.',
+                        description: 'Intervención endoscópica sobre facetas articulares y articulación sacroilíaca para denervación y alivio de dolor crónico.',
                         subproducts: [
-                            { name: 'MultiZYTE® Facet Lumbar', desc: 'Tratamiento de articulaciones facetarias lumbares.' },
-                            { name: 'MultiZYTE® Facet Cervical', desc: 'Tratamiento de facetas cervicales.' },
-                            { name: 'MultiZYTE® Sacroiliac', desc: 'Tratamiento directo de la articulación sacroilíaca.' }
+                            { name: 'MultiZYTE® Facet Lumbar', desc: 'Tratamiento facetario lumbar.' },
+                            { name: 'MultiZYTE® Facet Cervical', desc: 'Tratamiento facetario cervical.' },
+                            { name: 'MultiZYTE® Sacroiliac', desc: 'Tratamiento directo articulación SI.' }
                         ],
-                        indications: ['Síndrome facetario', 'Dolor lumbar axial', 'Dolor sacroilíaco', 'Cervicobraquialgia facetaria']
+                        indications: ['Síndrome facetario', 'Dolor lumbar axial', 'Dolor sacroilíaco']
                     },
                     {
                         id: 'intents',
                         title: 'intENTS®',
                         code: 'INTRADISCAL',
-                        subtitle: 'Terapia Endoscópica Intradiscal',
+                        subtitle: 'Terapia Intradiscal',
                         icon: 'fa-bullseye',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=intENTS%C2%AE+joimax',
+                        img: 'https://placehold.co/400x300/112240/64ffda?text=intENTS%C2%AE',
                         description: 'Abordaje mínimamente invasivo para la descompresión y desposicionamiento térmico dentro del núcleo pulposo.',
                         subproducts: [
                             { name: 'intENTS® Lumbar', desc: 'Tratamiento intradiscal lumbar.' },
                             { name: 'intENTS® Cervical', desc: 'Tratamiento intradiscal cervical con cánula fina.' }
                         ],
-                        indications: ['Dolor discogénico lumbar', 'Protrusión discal', 'Fisura anular sintomática']
+                        indications: ['Dolor discogénico', 'Protrusión discal']
                     },
                     {
                         id: 'endolif',
                         title: 'EndoLIF®',
                         code: 'FUSIÓN',
-                        subtitle: 'Fusión Intersomática Endoscópica',
+                        subtitle: 'Fusión Intersomática',
                         icon: 'fa-cubes',
                         img: 'https://www.joimax.com/wp-content/uploads/2020/09/EndoLIF_Product.png',
-                        description: 'Cajas intersomáticas implantables por vía endoscópica transforaminal o interlaminar con conservación anatómica.',
+                        description: 'Cajas intersomáticas implantables por vía endoscópica transforaminal o interlaminar con máxima preservación anatómica.',
                         subproducts: [
-                            { name: 'EndoLIF® O/On-Cage', desc: 'Caja intersomática de acceso oblicuo/transforaminal.' },
-                            { name: 'EndoLIF® Delta Cage', desc: 'Caja intersomática para acceso posterior L5-S1.' }
+                            { name: 'EndoLIF® O/On-Cage', desc: 'Caja intersomática oblicua.' },
+                            { name: 'EndoLIF® Delta Cage', desc: 'Caja posterior para L5-S1.' }
                         ],
-                        indications: ['Inestabilidad lumbar', 'Espondilolistesis', 'Degeneración discal severa', 'Fusión lumbar']
+                        indications: ['Inestabilidad lumbar', 'Espondilolistesis', 'Fusión']
                     },
                     {
                         id: 'percusys',
                         title: 'PERCUSYS® PLUS',
-                        code: 'ESTABILIZACIÓN',
-                        subtitle: 'Estabilización Percutánea con Tornillos',
+                        code: 'FIJACIÓN',
+                        subtitle: 'Estabilización Percutánea',
                         icon: 'fa-screwdriver-wrench',
                         img: 'https://www.joimax.com/wp-content/uploads/2020/09/Percusys_Product.png',
                         description: 'Sistema percutáneo de tornillos pediculares y barras para fijación vertebral de mínima invasión.',
                         subproducts: [
-                            { name: 'Tornillos Pediculares', desc: 'Poliaxiales y monoaxiales de bajo perfil.' },
-                            { name: 'Barras Precurvadas', desc: 'Barras titanio/CoCr lordóticas y rectas.' },
-                            { name: 'Instrumental Percutáneo', desc: 'Guías de extensión y dilatadores.' }
+                            { name: 'Tornillos Pediculares', desc: 'Poliaxiales y monoaxiales.' },
+                            { name: 'Barras Precurvadas', desc: 'Titanio/CoCr lordóticas.' }
                         ],
-                        indications: ['Inestabilidad mecánica', 'Trauma vertebral', 'Espondilolistesis', 'Fusión multinivel']
+                        indications: ['Inestabilidad mecánica', 'Trauma vertebral', 'Fusión']
                     }
                 ]
             },
             {
                 sectionId: 'sec-torre',
-                sectionTitle: '2. TORRE DE ENDOSCOPIA - NAVENTO®',
-                sectionSubtitle: 'Plataforma integrada de visualización, navegación y radiofrecuencia',
+                sectionTitle: '2. TORRE NAVENTO®',
+                sectionSubtitle: 'Visualización, navegación y radiofrecuencia',
                 items: [
                     {
                         id: 'vitegra',
                         title: 'VITEGRA®',
-                        code: 'TORRE NAVENTO',
-                        subtitle: 'Documentación y Control de Quirófano',
+                        code: 'NAVENTO',
+                        subtitle: 'Documentación y Control',
                         icon: 'fa-compact-disc',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=VITEGRA%C2%AE+NAVENTO',
-                        description: 'Unidad centralizada de control, procesamiento de video en HD/4K y documentación de procedimientos en tiempo real.',
+                        img: 'https://placehold.co/400x300/112240/64ffda?text=VITEGRA%C2%AE',
+                        description: 'Unidad centralizada de control, procesamiento de video HD/4K y documentación de procedimientos.',
                         subproducts: [
-                            { name: 'Vitegra® Docu', desc: 'Sistema de grabación 4K y reporte médico.' },
-                            { name: 'Vitegra® Command', desc: 'Control integrado de periféricos joimax®.' }
+                            { name: 'Vitegra® Docu', desc: 'Grabación 4K y reporte médico.' },
+                            { name: 'Vitegra® Command', desc: 'Control de periféricos.' }
                         ],
-                        indications: ['Gestión de video quirúrgico', 'Documentación DICOM/PACS']
+                        indications: ['Gestión de video quirúrgico', 'PACS/DICOM']
                     },
                     {
                         id: 'camsource',
                         title: 'CAMSOURCE®',
-                        code: 'TORRE NAVENTO',
-                        subtitle: 'Cámara 4K + Fuente de Luz LED',
+                        code: 'NAVENTO',
+                        subtitle: 'Cámara 4K + Luz LED',
                         icon: 'fa-video',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=CAMSOURCE%C2%AE+LED+4K',
-                        description: 'Consola combo de alta definición con iluminación fría LED de larga duración y sensor 4K ultra nítido.',
+                        img: 'https://placehold.co/400x300/112240/64ffda?text=CAMSOURCE%C2%AE',
+                        description: 'Consola combo de alta definición con iluminación fría LED y sensor 4K ultra nítido.',
                         subproducts: [
-                            { name: 'Camsource® LED 4K', desc: 'Cabezal de cámara ligero con botones personalizables.' }
+                            { name: 'Camsource® LED 4K', desc: 'Cabezal ligero con botones asignables.' }
                         ],
-                        indications: ['Visualización endoscópica de alta fidelidad']
+                        indications: ['Visualización endoscópica de alta definición']
                     },
                     {
                         id: 'intracs',
                         title: 'INTRACS® EM',
-                        code: 'TORRE NAVENTO',
+                        code: 'NAVENTO',
                         subtitle: 'Navegación Electromagnética',
                         icon: 'fa-location-crosshairs',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=INTRACS%C2%AE+EM+joimax',
-                        description: 'Navegador electromagnético sin necesidad de visión directa de cámaras infrarrojas. Seguimiento continuo de la cánula y herramientas.',
+                        img: 'https://placehold.co/400x300/112240/64ffda?text=INTRACS%C2%AE+EM',
+                        description: 'Navegador electromagnético continuo para el seguimiento preciso de cánulas y herramientas sin línea de visión.',
                         subproducts: [
-                            { name: 'Unidad INTRACS® EM', desc: 'Consola de procesamiento y transmisor EM.' },
-                            { name: 'Agujas Navegadas', desc: 'J-Needle con sensor integrado.' }
+                            { name: 'Consola INTRACS® EM', desc: 'Procesamiento de imagen electromagnética.' },
+                            { name: 'Agujas Navegadas', desc: 'Sensor electromagnético en punta.' }
                         ],
-                        indications: ['Precisión de abordaje', 'Reducción de radiación fluoroscópica']
+                        indications: ['Precisión de abordaje', 'Reducción de radiación']
                     },
                     {
                         id: 'shrill',
                         title: 'SHRILL®',
-                        code: 'TORRE NAVENTO',
-                        subtitle: 'Fresado / Resección Ósea',
+                        code: 'NAVENTO',
+                        subtitle: 'Fresado Óseo',
                         icon: 'fa-dharmachakra',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=SHRILL%C2%AE+Spinner+Blades',
-                        description: 'Motor de alta velocidad y cuchillas/fresas Shrill® Spinner Blades para laminotomía y resección de hueso precisa.',
+                        img: 'https://placehold.co/400x300/112240/64ffda?text=SHRILL%C2%AE',
+                        description: 'Motor de alta velocidad y fresas Shrill® Spinner Blades para laminotomía y resecado de tejido óseo.',
                         subproducts: [
-                            { name: 'Shrill® Shaver Blades', desc: 'Fresas diamantadas y de corte articular.' }
+                            { name: 'Shrill® Shaver Blades', desc: 'Fresas diamantadas y de corte.' }
                         ],
-                        indications: ['Foraminoplastia', 'Resección de osteofitos', 'Laminotomía']
+                        indications: ['Foraminoplastia', 'Resección de osteofitos']
                     },
                     {
                         id: 'endovapor',
                         title: 'ENDOVAPOR® 2',
-                        code: 'TORRE NAVENTO',
+                        code: 'NAVENTO',
                         subtitle: 'Radiofrecuencia (RF)',
                         icon: 'fa-bolt',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=ENDOVAPOR%C2%AE+2+RF',
-                        description: 'Generador versátil de radiofrecuencia bipolar y monopolar para hemostasia efectiva y shrinking del disco.',
+                        img: 'https://placehold.co/400x300/112240/64ffda?text=ENDOVAPOR%C2%AE+2',
+                        description: 'Generador bipolar y monopolar para hemostasia efectiva y shrinking del disco.',
                         subproducts: [
-                            { name: 'Vaporflex®', desc: 'Electrodos orientables de RF.' },
+                            { name: 'Vaporflex®', desc: 'Electrodos RF orientables.' },
                             { name: 'Legato® / Vaporace®', desc: 'Sondas polares de ablación.' }
                         ],
-                        indications: ['Hemostasia intraoperatoria', 'Ablación de tejido fibroso']
+                        indications: ['Hemostasia intraoperatoria', 'Ablación de tejido']
                     },
                     {
                         id: 'versicon',
                         title: 'VERSICON®',
-                        code: 'TORRE NAVENTO',
-                        subtitle: 'Bomba de Irrigación Continua',
+                        code: 'NAVENTO',
+                        subtitle: 'Bomba de Irrigación',
                         icon: 'fa-droplet',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=VERSICON%C2%AE+Pump',
-                        description: 'Bomba con control dual de presión y flujo para mantener un campo visual nítido y libre de sangrado.',
+                        img: 'https://placehold.co/400x300/112240/64ffda?text=VERSICON%C2%AE',
+                        description: 'Bomba con control preciso de presión y flujo para mantener un campo visual nítido y libre de sangrado.',
                         subproducts: [
-                            { name: 'Versicon® Spine Mode', desc: 'Ajuste de presión adaptado a canal espinal.' }
+                            { name: 'Versicon® Spine Mode', desc: 'Presión adaptable al canal espinal.' }
                         ],
-                        indications: ['Lavado y visibilidad continua en endoscopia']
+                        indications: ['Irrigación y visibilidad continua']
                     },
                     {
                         id: 'robofix',
                         title: 'ROBOFIX®',
                         code: 'SOPORTE',
-                        subtitle: 'Soporte Robótico de Endoscopio',
+                        subtitle: 'Soporte Robótico',
                         icon: 'fa-robot',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=ROBOFIX%C2%AE+Stand',
-                        description: 'Brazo articulado de sujeción que mantiene la óptica fija de forma estable, permitiendo al cirujano trabajar con ambas manos libremente.',
+                        img: 'https://placehold.co/400x300/112240/64ffda?text=ROBOFIX%C2%AE',
+                        description: 'Brazo de sujeción articulado que sostiene la óptica de manera estable, permitiendo técnica bimanual.',
                         subproducts: [
-                            { name: 'Brazo Articulado RoboFIX®', desc: 'Fijación de alta estabilidad compatible con iLESSYS® Biportal.' }
+                            { name: 'Brazo RoboFIX®', desc: 'Sujeción de alta estabilidad.' }
                         ],
-                        indications: ['Técnica endoscópica bimanual']
+                        indications: ['Soporte óptico bimanual']
                     }
                 ]
             },
             {
                 sectionId: 'sec-endoscopios',
-                sectionTitle: '3. ENDOSCOPIOS Y SIMULADORES',
-                sectionSubtitle: 'Ópticas de alta definición y modelos de entrenamiento',
+                sectionTitle: '3. ÓPTICAS Y SIMULADORES',
+                sectionSubtitle: 'Endoscopios y modelos de capacitación',
                 items: [
                     {
                         id: 'endoscopes',
                         title: 'ENDOSCOPIOS JOIMAX®',
                         code: 'ÓPTICAS',
-                        subtitle: 'Foramyno, Lamino y Nucleoscopios',
+                        subtitle: 'Ópticas HD de Trabajo',
                         icon: 'fa-eye',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=JOIMAX%C2%AE+Endoscopes',
-                        description: 'Ópticas con canal de trabajo integrado y ángulos variados (15°, 30°) para excelente visión anatómica.',
+                        img: 'https://placehold.co/400x300/112240/64ffda?text=Ópticas+joimax',
+                        description: 'Ópticas con canal de trabajo integrado y ángulos variados (15°, 30°) para visualización óptima.',
                         subproducts: [
-                            { name: 'FORAMINOSCOPES®', desc: 'Ópticas para abordaje transforaminal.' },
-                            { name: 'LAMINOSCOPES®', desc: 'Ópticas para abordaje interlaminar.' },
-                            { name: 'NUCLEOSCOPES®', desc: 'Ópticas finas para abordaje intradiscal.' }
+                            { name: 'FORAMINOSCOPES®', desc: 'Para abordaje transforaminal.' },
+                            { name: 'LAMINOSCOPES®', desc: 'Para abordaje interlaminar.' },
+                            { name: 'NUCLEOSCOPES®', desc: 'Para abordaje intradiscal.' }
                         ],
-                        indications: ['Visualización intracanular en tiempo real']
+                        indications: ['Visualización intracanular directa']
                     },
                     {
                         id: 'simulators',
-                        title: 'SURGICAL SIMULATORS',
-                        code: 'CAPACITACIÓN',
-                        subtitle: 'Simuladores Quirúrgicos de Columna',
+                        title: 'SIMULADORES SURGICAL',
+                        code: 'ENTRENAMIENTO',
+                        subtitle: 'Modelos de Capacitación',
                         icon: 'fa-graduation-cap',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=Surgical+Simulators',
-                        description: 'Modelos de simulación en seco con sensación táctil realista para práctica de acceso TESSYS® e iLESSYS®.',
+                        img: 'https://placehold.co/400x300/112240/64ffda?text=Simuladores+joimax',
+                        description: 'Modelos de simulación en seco con respuesta táctil realista para práctica de accesos TESSYS® e iLESSYS®.',
                         subproducts: [
-                            { name: 'Simuladores Prono / Lateral', desc: 'Estructuras óseas sintéticas con ligamentos.' }
+                            { name: 'Simuladores Prono/Lateral', desc: 'Anatomía sintética realista.' }
                         ],
-                        indications: ['Entrenamiento técnico y curvas de aprendizaje']
+                        indications: ['Entrenamiento y curva de aprendizaje']
                     }
                 ]
             }
@@ -563,7 +584,6 @@
 
         let activeViewMode = 'fan';
 
-        // Render the catalog in either Fan Mode or Grid Mode
         function renderCatalog() {
             const container = document.getElementById('catalogContainer');
             const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
@@ -573,56 +593,58 @@
             else clearBtn.classList.add('hidden');
 
             container.innerHTML = '';
-
             let totalMatches = 0;
 
             catalogData.forEach(section => {
-                // Filter section items by search term
                 const filteredItems = section.items.filter(item => {
                     if (!searchVal) return true;
-                    const matchTitle = item.title.toLowerCase().includes(searchVal);
-                    const matchSub = item.subtitle.toLowerCase().includes(searchVal);
-                    const matchDesc = item.description.toLowerCase().includes(searchVal);
-                    const matchSubp = item.subproducts.some(sp => sp.name.toLowerCase().includes(searchVal) || sp.desc.toLowerCase().includes(searchVal));
-                    const matchInd = item.indications.some(ind => ind.toLowerCase().includes(searchVal));
-                    return matchTitle || matchSub || matchDesc || matchSubp || matchInd;
+                    return item.title.toLowerCase().includes(searchVal) ||
+                           item.subtitle.toLowerCase().includes(searchVal) ||
+                           item.description.toLowerCase().includes(searchVal) ||
+                           item.subproducts.some(sp => sp.name.toLowerCase().includes(searchVal)) ||
+                           item.indications.some(ind => ind.toLowerCase().includes(searchVal));
                 });
 
                 if (filteredItems.length === 0) return;
                 totalMatches += filteredItems.length;
 
-                // Section HTML
                 const secEl = document.createElement('div');
-                secEl.className = "space-y-4";
+                secEl.className = "space-y-3 sm:space-y-4";
 
                 secEl.innerHTML = `
                     <div class="border-b border-slate-800 pb-2">
-                        <h4 class="text-lg font-black text-white flex items-center gap-2">
+                        <h4 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
                             <span class="w-2.5 h-2.5 rounded-full bg-medical-cyan inline-block"></span>
                             ${section.sectionTitle}
                         </h4>
-                        <p class="text-xs text-slate-400 pl-4">${section.sectionSubtitle}</p>
+                        <p class="text-[11px] sm:text-xs text-slate-400 pl-4">${section.sectionSubtitle}</p>
                     </div>
                 `;
 
                 if (activeViewMode === 'fan' && !searchVal) {
-                    // FAN VIEW (Abanico)
                     const fanWrapper = document.createElement('div');
-                    fanWrapper.className = "py-6 flex justify-center overflow-x-auto";
+                    fanWrapper.className = "fan-deck-wrapper py-4 sm:py-6 overflow-hidden";
 
                     const fanDeck = document.createElement('div');
                     fanDeck.className = "fan-deck";
                     
-                    // Add touch trigger to expand fan deck on mobile
-                    fanDeck.onclick = (e) => {
-                        if (e.target === fanDeck) {
-                            fanDeck.classList.toggle('expanded');
-                        }
+                    let itemsArray = [...filteredItems];
+                    let activeIndex = Math.floor(itemsArray.length / 2);
+
+                    const updateFanDeckPositions = () => {
+                        const cards = fanDeck.querySelectorAll('.fan-card');
+                        cards.forEach((card, idx) => {
+                            card.classList.remove('active-swipe-card');
+                            if (idx === activeIndex) {
+                                card.classList.add('active-swipe-card');
+                            }
+                        });
                     };
 
-                    filteredItems.forEach((item, idx) => {
+                    filteredItems.forEach((item, index) => {
                         const card = document.createElement('div');
-                        card.className = "fan-card glass-panel rounded-2xl p-4 border border-slate-700/80 flex flex-col justify-between text-left group";
+                        card.className = "fan-card glass-panel rounded-2xl p-3.5 sm:p-4 border border-slate-700/80 flex flex-col justify-between text-left group";
+                        
                         card.onclick = (e) => {
                             e.stopPropagation();
                             openProductModal(item.id);
@@ -630,53 +652,109 @@
 
                         card.innerHTML = `
                             <div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-blue-500/20 text-medical-cyan border border-blue-500/30">
+                                <div class="flex items-center justify-between mb-1.5 sm:mb-2">
+                                    <span class="text-[8px] sm:text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-blue-500/20 text-medical-cyan border border-blue-500/30">
                                         ${item.code}
                                     </span>
                                     <i class="fa-solid ${item.icon} text-slate-400 group-hover:text-medical-cyan text-xs"></i>
                                 </div>
-                                <h5 class="text-base font-black text-white group-hover:text-medical-cyan transition">${item.title}</h5>
-                                <p class="text-[11px] font-semibold text-slate-400 line-clamp-1 mb-2">${item.subtitle}</p>
-                                <p class="text-[10px] text-slate-400 line-clamp-3 leading-relaxed">${item.description}</p>
+                                <h5 class="text-sm sm:text-base font-black text-white group-hover:text-medical-cyan transition leading-tight mb-0.5">${item.title}</h5>
+                                <p class="text-[10px] sm:text-[11px] font-semibold text-slate-400 line-clamp-1 mb-1.5">${item.subtitle}</p>
+                                <p class="text-[9px] sm:text-[10px] text-slate-400 line-clamp-3 leading-relaxed">${item.description}</p>
                             </div>
-                            <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] text-medical-cyan font-bold">
-                                <span>Ver Desglose</span>
+                            <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-[9px] sm:text-[10px] text-medical-cyan font-bold">
+                                <span>Ver Detalle</span>
                                 <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
                             </div>
                         `;
                         fanDeck.appendChild(card);
                     });
 
+                    // Control de gestos deslizar (Swipe) para móviles
+                    let touchStartX = 0;
+                    let touchEndX = 0;
+
+                    fanDeck.addEventListener('touchstart', (e) => {
+                        touchStartX = e.changedTouches[0].screenX;
+                    }, { passive: true });
+
+                    fanDeck.addEventListener('touchend', (e) => {
+                        touchEndX = e.changedTouches[0].screenX;
+                        handleSwipe();
+                    }, { passive: true });
+
+                    function handleSwipe() {
+                        const swipeThreshold = 35;
+                        if (touchEndX < touchStartX - swipeThreshold) {
+                            // Deslizar izquierda -> Siguiente tarjeta
+                            const firstChild = fanDeck.firstElementChild;
+                            if (firstChild) {
+                                fanDeck.appendChild(firstChild);
+                            }
+                        } else if (touchEndX > touchStartX + swipeThreshold) {
+                            // Deslizar derecha -> Tarjeta anterior
+                            const lastChild = fanDeck.lastElementChild;
+                            if (lastChild) {
+                                fanDeck.insertBefore(lastChild, fanDeck.firstElementChild);
+                            }
+                        }
+                    }
+
+                    // Controles de navegación manual
+                    const navControls = document.createElement('div');
+                    navControls.className = "flex items-center gap-4 mt-3 text-slate-400 text-xs font-semibold";
+                    navControls.innerHTML = `
+                        <button class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-xl hover:text-white transition active:scale-95" title="Anterior">
+                            <i class="fa-solid fa-chevron-left mr-1"></i> Anterior
+                        </button>
+                        <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Desliza <i class="fa-solid fa-hand-pointer text-medical-cyan"></i></span>
+                        <button class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-xl hover:text-white transition active:scale-95" title="Siguiente">
+                            Siguiente <i class="fa-solid fa-chevron-right ml-1"></i>
+                        </button>
+                    `;
+
+                    const btnPrev = navControls.querySelectorAll('button')[0];
+                    const btnNext = navControls.querySelectorAll('button')[1];
+
+                    btnPrev.onclick = () => {
+                        const lastChild = fanDeck.lastElementChild;
+                        if (lastChild) fanDeck.insertBefore(lastChild, fanDeck.firstElementChild);
+                    };
+
+                    btnNext.onclick = () => {
+                        const firstChild = fanDeck.firstElementChild;
+                        if (firstChild) fanDeck.appendChild(firstChild);
+                    };
+
                     fanWrapper.appendChild(fanDeck);
+                    fanWrapper.appendChild(navControls);
                     secEl.appendChild(fanWrapper);
 
                 } else {
-                    // GRID VIEW (Cuadrícula) or Search Mode
                     const grid = document.createElement('div');
-                    grid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4";
+                    grid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4";
 
                     filteredItems.forEach(item => {
                         const card = document.createElement('div');
-                        card.className = "glass-panel rounded-2xl p-4 border border-slate-800 hover:border-medical-accent transition cursor-pointer flex flex-col justify-between group hover:-translate-y-1 shadow-lg";
+                        card.className = "glass-panel rounded-2xl p-3.5 sm:p-4 border border-slate-800 hover:border-medical-accent transition cursor-pointer flex flex-col justify-between group active:scale-[0.98] shadow-lg";
                         card.onclick = () => openProductModal(item.id);
 
                         card.innerHTML = `
                             <div>
                                 <div class="flex items-center justify-between mb-2">
-                                    <span class="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-blue-500/20 text-medical-cyan border border-blue-500/30">
+                                    <span class="text-[8px] sm:text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-blue-500/20 text-medical-cyan border border-blue-500/30">
                                         ${item.code}
                                     </span>
-                                    <i class="fa-solid ${item.icon} text-slate-400 group-hover:text-medical-cyan transition"></i>
+                                    <i class="fa-solid ${item.icon} text-slate-400 group-hover:text-medical-cyan transition text-xs sm:text-sm"></i>
                                 </div>
-                                <h5 class="text-lg font-black text-white group-hover:text-medical-cyan transition">${item.title}</h5>
-                                <p class="text-xs font-semibold text-slate-400 mb-2">${item.subtitle}</p>
-                                <p class="text-xs text-slate-400 line-clamp-2 mb-4 leading-relaxed">${item.description}</p>
+                                <h5 class="text-base sm:text-lg font-black text-white group-hover:text-medical-cyan transition">${item.title}</h5>
+                                <p class="text-xs font-semibold text-slate-400 mb-1.5">${item.subtitle}</p>
+                                <p class="text-xs text-slate-400 line-clamp-2 mb-3 leading-relaxed">${item.description}</p>
                             </div>
-                            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-                                <span class="text-[11px] text-slate-400"><i class="fa-solid fa-list-check mr-1"></i> ${item.subproducts.length} Subproductos</span>
+                            <div class="pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                                <span class="text-[10px] sm:text-[11px] text-slate-400"><i class="fa-solid fa-list-check mr-1"></i> ${item.subproducts.length} ítems</span>
                                 <span class="text-xs font-bold text-medical-cyan flex items-center gap-1 group-hover:translate-x-1 transition">
-                                    Desglosar <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                    Detalles <i class="fa-solid fa-arrow-right text-[10px]"></i>
                                 </span>
                             </div>
                         `;
@@ -691,27 +769,26 @@
 
             if (totalMatches === 0) {
                 container.innerHTML = `
-                    <div class="py-12 text-center text-slate-500 space-y-2">
-                        <i class="fa-solid fa-magnifying-glass text-3xl mb-2"></i>
-                        <p class="font-bold text-slate-300">No se encontraron productos o técnicas.</p>
-                        <p class="text-xs">Prueba buscando términos como "Hernia", "TESSYS", "Navegación" o "4K".</p>
+                    <div class="py-10 text-center text-slate-500 space-y-2">
+                        <i class="fa-solid fa-magnifying-glass text-2xl mb-1"></i>
+                        <p class="font-bold text-slate-300 text-sm">Sin coincidencias.</p>
+                        <p class="text-xs">Prueba buscando "Hernia", "TESSYS", "4K" o "RF".</p>
                     </div>
                 `;
             }
         }
 
-        // Switch View Modes
         function switchView(mode) {
             activeViewMode = mode;
             const btnFan = document.getElementById('btnViewFan');
             const btnGrid = document.getElementById('btnViewGrid');
 
             if (mode === 'fan') {
-                btnFan.className = "px-4 py-2 rounded-xl font-bold bg-medical-accent text-white transition flex items-center gap-2";
-                btnGrid.className = "px-4 py-2 rounded-xl font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2";
+                btnFan.className = "px-3.5 py-1.5 rounded-xl font-bold bg-medical-accent text-white transition flex items-center gap-2 whitespace-nowrap active:scale-95";
+                btnGrid.className = "px-3.5 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 whitespace-nowrap active:scale-95";
             } else {
-                btnGrid.className = "px-4 py-2 rounded-xl font-bold bg-medical-accent text-white transition flex items-center gap-2";
-                btnFan.className = "px-4 py-2 rounded-xl font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2";
+                btnGrid.className = "px-3.5 py-1.5 rounded-xl font-bold bg-medical-accent text-white transition flex items-center gap-2 whitespace-nowrap active:scale-95";
+                btnFan.className = "px-3.5 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 whitespace-nowrap active:scale-95";
             }
             renderCatalog();
         }
@@ -725,7 +802,6 @@
             renderCatalog();
         }
 
-        // Open Detail Modal
         function openProductModal(id) {
             let foundItem = null;
             catalogData.forEach(sec => {
@@ -740,37 +816,33 @@
             document.getElementById('modalDescription').innerText = foundItem.description;
             document.getElementById('modalIcon').innerHTML = `<i class="fa-solid ${foundItem.icon}"></i>`;
             
-            // Image handling
             const imgEl = document.getElementById('modalImage');
             imgEl.src = foundItem.img;
             imgEl.onerror = function() {
                 this.src = 'https://placehold.co/400x300/112240/64ffda?text=' + encodeURIComponent(foundItem.title);
             };
 
-            // Populate Subproducts
             const subList = document.getElementById('modalSubproductsList');
             subList.innerHTML = '';
             foundItem.subproducts.forEach(sub => {
                 const subEl = document.createElement('div');
-                subEl.className = "bg-slate-950 p-3 rounded-xl border border-slate-800";
+                subEl.className = "bg-slate-950 p-2.5 rounded-xl border border-slate-800";
                 subEl.innerHTML = `
                     <p class="font-bold text-xs text-medical-cyan">${sub.name}</p>
-                    <p class="text-[11px] text-slate-400 mt-0.5 leading-tight">${sub.desc}</p>
+                    <p class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 leading-tight">${sub.desc}</p>
                 `;
                 subList.appendChild(subEl);
             });
 
-            // Populate Indications
             const indList = document.getElementById('modalIndicationsList');
             indList.innerHTML = '';
             foundItem.indications.forEach(ind => {
                 const badge = document.createElement('li');
-                badge.className = "px-2.5 py-1 bg-emerald-950/60 border border-emerald-800/60 text-emerald-400 rounded-lg text-xs font-semibold flex items-center gap-1.5";
-                badge.innerHTML = `<i class="fa-solid fa-check text-[10px] text-emerald-400"></i> ${ind}`;
+                badge.className = "px-2.5 py-1 bg-emerald-950/60 border border-emerald-800/60 text-emerald-400 rounded-lg text-[11px] font-semibold flex items-center gap-1";
+                badge.innerHTML = `<i class="fa-solid fa-check text-[9px]"></i> ${ind}`;
                 indList.appendChild(badge);
             });
 
-            // Show Modal with Animation
             const modal = document.getElementById('productModal');
             const content = document.getElementById('modalContent');
             modal.classList.remove('hidden');
@@ -792,30 +864,15 @@
             }, 300);
         }
 
-        // QR Modal logic
-        function openQrModal() {
-            const modal = document.getElementById('qrModal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
-        }
-
-        function closeQrModal() {
-            const modal = document.getElementById('qrModal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        }
-
-        // vCard Generator & Downloader
         function downloadVCard() {
             const vcardContent = `BEGIN:VCARD
 VERSION:3.0
 N:López García;Alfredo;;;
 FN:ALFREDO LÓPEZ GARCÍA
 TITLE:TÉCNICO EN ENDOSCOPIA - Especialista en Columna
-ORG:joimax® GmbH Alemania
+ORG:joimax® GmbH
 TEL;TYPE=CELL:+525545992601
 EMAIL:alopez@mava.com.mx
-ADR;TYPE=WORK:;;México;;;;
 NOTE:Especialista en Soporte Técnico de Cirugía Endoscópica de Columna. Certificado por joimax® GmbH Alemania.
 END:VCARD`;
 
