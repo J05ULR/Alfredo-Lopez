@@ -34,86 +34,10 @@
     </script>
     <style>
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #0a192f; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
-
-        /* Contenedor Abanico Adaptativo */
-        .fan-deck-wrapper {
-            position: relative;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            touch-action: pan-y;
-        }
-
-        .fan-deck {
-            position: relative;
-            width: 100%;
-            max-width: 320px;
-            height: 280px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            perspective: 1000px;
-            touch-action: pan-y;
-            user-select: none;
-        }
-
-        .fan-card {
-            position: absolute;
-            width: 200px;
-            height: 250px;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
-            transform-origin: bottom center;
-            cursor: pointer;
-            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.6);
-            will-change: transform;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        @media (min-width: 640px) {
-            .fan-deck { max-width: 480px; height: 310px; }
-            .fan-card { width: 230px; height: 270px; }
-        }
-
-        /* Posiciones en reposo (Apilado ligero) */
-        .fan-deck .fan-card:nth-child(1) { transform: rotate(-10deg) translateX(-20px); z-index: 1; }
-        .fan-deck .fan-card:nth-child(2) { transform: rotate(-5deg) translateX(-10px); z-index: 2; }
-        .fan-deck .fan-card:nth-child(3) { transform: rotate(0deg) translateX(0px); z-index: 3; }
-        .fan-deck .fan-card:nth-child(4) { transform: rotate(5deg) translateX(10px); z-index: 4; }
-        .fan-deck .fan-card:nth-child(5) { transform: rotate(10deg) translateX(20px); z-index: 5; }
-        .fan-deck .fan-card:nth-child(6) { transform: rotate(15deg) translateX(30px); z-index: 6; }
-        .fan-deck .fan-card:nth-child(7) { transform: rotate(20deg) translateX(40px); z-index: 7; }
-
-        /* Despliegue en Hover (PC) o clase .expanded (Tap/Swipe en Móvil) */
-        .fan-deck:hover .fan-card:nth-child(1), .fan-deck.expanded .fan-card:nth-child(1) { transform: rotate(-22deg) translateX(-85px) translateY(-8px); }
-        .fan-deck:hover .fan-card:nth-child(2), .fan-deck.expanded .fan-card:nth-child(2) { transform: rotate(-14deg) translateX(-55px) translateY(-4px); }
-        .fan-deck:hover .fan-card:nth-child(3), .fan-deck.expanded .fan-card:nth-child(3) { transform: rotate(-7deg) translateX(-25px); }
-        .fan-deck:hover .fan-card:nth-child(4), .fan-deck.expanded .fan-card:nth-child(4) { transform: rotate(0deg) translateX(5px); }
-        .fan-deck:hover .fan-card:nth-child(5), .fan-deck.expanded .fan-card:nth-child(5) { transform: rotate(7deg) translateX(35px); }
-        .fan-deck:hover .fan-card:nth-child(6), .fan-deck.expanded .fan-card:nth-child(6) { transform: rotate(14deg) translateX(65px) translateY(-4px); }
-        .fan-deck:hover .fan-card:nth-child(7), .fan-deck.expanded .fan-card:nth-child(7) { transform: rotate(22deg) translateX(95px) translateY(-8px); }
-
-        /* Tarjeta Activa/Focus al rotar con Swipe */
-        .fan-card.active-swipe-card {
-            z-index: 50 !important;
-            transform: scale(1.12) translateY(-25px) rotate(0deg) !important;
-            box-shadow: 0 20px 30px -10px rgba(0, 102, 204, 0.9);
-            border-color: #64ffda !important;
-        }
-
-        /* Enfocar tarjeta individual al pasar sobre ella */
-        .fan-card:hover, .fan-card:active {
-            z-index: 40 !important;
-            transform: scale(1.1) translateY(-25px) rotate(0deg) !important;
-            box-shadow: 0 20px 30px -10px rgba(0, 102, 204, 0.8);
-            border-color: #64ffda !important;
-        }
 
         /* Glassmorphism */
         .glass-panel {
@@ -122,26 +46,54 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(100, 255, 218, 0.15);
         }
+        
+        .card-hover {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px -5px rgba(0, 102, 204, 0.3);
+            border-color: rgba(100, 255, 218, 0.4);
+        }
+
+        /* Ajuste de ancho del logo */
+        .zero-systems-svg {
+            width: 200px;
+            max-width: 100%;
+        }
+        @media (min-width: 640px) {
+            .zero-systems-svg {
+                width: 230px;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-medical-accent selection:text-white">
 
     <!-- Header Fijo -->
-    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <a href="https://www.mava.com.mx/" target="_blank" class="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-md flex-shrink-0 transition transform hover:scale-105">
-                    <img src="Gemini_Generated_Image_uammr8uammr8uamm.jpg" alt="MAVA Solución Real" class="w-full h-full object-contain">
+    <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
+        <div class="max-w-6xl mx-auto px-4 h-16 sm:h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 sm:space-x-4">
+                <!-- LOGO MAVA -->
+                <a href="https://www.mava.com.mx/" target="_blank" rel="noopener font-black" class="h-10 sm:h-12 px-3 py-1 bg-white rounded-xl flex items-center justify-center shadow-lg border border-slate-200 flex-shrink-0 transition transform hover:scale-105 active:scale-95 group">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 font-sans">MAVA</span>
+                        <div class="flex flex-col border-l border-slate-300 pl-1.5 text-left leading-none">
+                            <span class="text-[9px] sm:text-[10px] font-black tracking-wider text-blue-700 uppercase">SOLUCIÓN</span>
+                            <span class="text-[8px] sm:text-[9px] font-extrabold tracking-wider text-emerald-600 uppercase">REAL</span>
+                        </div>
+                    </div>
                 </a>
+                
                 <div class="truncate">
                     <h1 class="text-xs sm:text-sm font-black text-white tracking-tight leading-none truncate">ALFREDO LÓPEZ GARCÍA</h1>
-                    <p class="text-[10px] sm:text-[11px] font-semibold text-medical-cyan truncate">Comercializadora Medica MAVA</p>
+                    <p class="text-[10px] sm:text-[11px] font-semibold text-medical-cyan truncate">Comercializadora Médica MAVA</p>
                 </div>
             </div>
 
             <div class="flex items-center space-x-2 flex-shrink-0">
-                <button onclick="downloadVCard()" class="px-3 py-2 bg-medical-accent hover:bg-blue-600 text-white text-xs font-bold rounded-xl shadow-lg flex items-center gap-1.5 transition active:scale-95">
-                    <i class="fa-solid fa-vcard"></i>
+                <button onclick="downloadVCard()" class="px-3 py-2 sm:px-4 sm:py-2.5 bg-medical-accent hover:bg-blue-600 text-white text-xs font-bold rounded-xl shadow-lg flex items-center gap-2 transition active:scale-95">
+                    <i class="fa-solid fa-vcard text-sm"></i>
                     <span class="hidden sm:inline">Guardar Contacto</span>
                 </button>
             </div>
@@ -162,7 +114,9 @@
                 <div class="lg:col-span-4 flex flex-col items-center text-center">
                     <div class="relative">
                         <div class="w-36 h-36 sm:w-44 sm:h-44 rounded-3xl p-1 bg-gradient-to-b from-cyan-400 via-blue-600 to-slate-900 shadow-2xl flex items-center justify-center overflow-hidden">
-                            <img src="https://scontent.fmex5-1.fna.fbcdn.net/v/t39.30808-6/814800592_2630024717467400_703187913141889583_n.jpg?stp=dst-jpg_tt6&cstp=mx896x1195&ctp=s704x704&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEfDR-guk6Si12IB70S5nn5bRfE1LU1CKhtF8TUtTUIqLXUt9ApJt6YkJcNpirrwSv-w0mx1UcPWbft8Qph2q09&_nc_ohc=cKojGuwTJ98Q7kNvwEXrMik&_nc_oc=AdogEJwysck_pe9toMBe_fmdAA6fLxP7h6glmZET5NlRUIA1IWUuGkMUjaGqZzfo9l4hVK3nMRePISkSCf51fL6E&_nc_zt=23&_nc_ht=scontent.fmex5-1.fna&_nc_gid=gq03xRrFFeiNplHgz_KxwA&_nc_ss=7b2a8&oh=00_AQKHn1xHY2aUswoPDB2J1CG96rsmac5U18g3h5iFocN9BQ&oe=6AB2AC57" alt="Alfredo López García" class="w-full h-full object-cover rounded-[22px]">
+                            <img src="https://scontent.fmex5-1.fna.fbcdn.net/v/t39.30808-6/814800592_2630024717467400_703187913141889583_n.jpg?stp=dst-jpg_tt6&cstp=mx896x1195&ctp=s704x704&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEfDR-guk6Si12IB70S5nn5bRfE1LU1CKhtF8TUtTUIqLXUt9ApJt6YkJcNpirrwSv-w0mx1UcPWbft8Qph2q09&_nc_ohc=cKojGuwTJ98Q7kNvwEXrMik&_nc_oc=AdogEJwysck_pe9toMBe_fmdAA6fLxP7h6glmZET5NlRUIA1IWUuGkMUjaGqZzfo9l4hVK3nMRePISkSCf51fL6E&_nc_zt=23&_nc_ht=scontent.fmex5-1.fna&_nc_gid=gq03xRrFFeiNplHgz_KxwA&_nc_ss=7b2a8&oh=00_AQKHn1xHY2aUswoPDB2J1CG96rsmac5U18g3h5iFocN9BQ&oe=6AB2AC57" 
+                                 onerror="this.src='https://placehold.co/300x300/112240/64ffda?text=Alfredo+L%C3%B3pez'" 
+                                 alt="Alfredo López García" class="w-full h-full object-cover rounded-[22px]">
                         </div>
                         <span class="absolute bottom-2 right-2 bg-emerald-500 border-2 border-slate-900 w-4 h-4 sm:w-5 sm:h-5 rounded-full" title="Disponible para Soporte"></span>
                     </div>
@@ -216,7 +170,6 @@
                             <span class="text-[11px] sm:text-xs font-bold text-white truncate max-w-full">alopez@mava.com.mx</span>
                         </a>
 
-                        <!-- Botón LinkedIn -->
                         <a href="https://www.linkedin.com" target="_blank" class="flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-blue-400/50 transition active:scale-95 group">
                             <i class="fa-brands fa-linkedin text-blue-400 text-base sm:text-lg mb-1 group-hover:scale-110 transition"></i>
                             <span class="text-[9px] sm:text-[10px] text-slate-400">Perfil Profesional</span>
@@ -227,99 +180,93 @@
             </div>
         </section>
 
-        <!-- Barra de Búsqueda y Filtros -->
-        <section class="glass-panel rounded-2xl p-4 sm:p-5 border border-slate-800 space-y-4">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
-                <div>
-                    <h3 class="text-lg sm:text-xl font-black text-white flex items-center gap-2">
-                        <i class="fa-solid fa-layer-group text-medical-cyan"></i>
-                        Portafolio joimax®
-                    </h3>
-                    <p class="text-[11px] sm:text-xs text-slate-400">Desliza a la izquierda o derecha sobre el abanico para rotar las tarjetas o tócalas para ver detalles.</p>
-                </div>
-
-                <!-- Buscador -->
-                <div class="relative w-full md:w-80">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
-                    <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Buscar: hernia, TESSYS, 4K, RF..." 
-                        class="w-full pl-9 pr-9 py-2 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-medical-accent transition">
-                    <button id="clearSearch" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white text-xs">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Selector de Vista -->
-            <div class="flex items-center space-x-2 border-b border-slate-800 pb-3 overflow-x-auto text-xs">
-                <button onclick="switchView('fan')" id="btnViewFan" class="px-3.5 py-1.5 rounded-xl font-bold bg-medical-accent text-white transition flex items-center gap-2 whitespace-nowrap active:scale-95">
-                    <i class="fa-solid fa-fan"></i> Vista Abanico
+        <!-- Titular de Catálogo de Productos con Botón Desplegable Generales -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-3 gap-3">
+            <div>
+                <button onclick="toggleAllSections()" class="text-xl sm:text-2xl font-black text-white flex items-center gap-2 hover:text-medical-cyan transition text-left focus:outline-none">
+                    <i class="fa-solid fa-grip text-medical-cyan"></i>
+                    <span>Catálogo de Productos joimax®</span>
+                    <i id="mainCatalogChevron" class="fa-solid fa-chevron-down text-sm text-slate-400 transition-transform duration-300 ml-1"></i>
                 </button>
-                <button onclick="switchView('grid')" id="btnViewGrid" class="px-3.5 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 whitespace-nowrap active:scale-95">
-                    <i class="fa-solid fa-grip"></i> Vista Cuadrícula
-                </button>
+                <p class="text-xs text-slate-400 mt-1">Haz clic en el título o presiona una sección individual para expandir el contenido.</p>
             </div>
-        </section>
+            
+            <button onclick="toggleAllSections()" id="toggleAllBtn" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs text-medical-cyan font-bold rounded-xl transition self-start sm:self-auto flex items-center gap-2">
+                <i class="fa-solid fa-folder-open"></i>
+                <span id="toggleAllBtnText">Desplegar Todo</span>
+            </button>
+        </div>
 
-        <!-- Catálogo Dinámico -->
-        <section id="catalogContainer" class="space-y-8 sm:space-y-10">
-            <!-- Renderizado dinámico -->
+        <!-- Catálogo Dinámico en Cuadrícula -->
+        <section id="catalogContainer" class="space-y-6">
+            <!-- Renderizado dinámico vía JavaScript -->
         </section>
 
     </main>
 
-    <!-- Modal Detalle del Producto -->
+    <!-- Modal Detalle del Producto y Variantes -->
     <div id="productModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
-        <div class="bg-slate-900 w-full max-w-2xl rounded-2xl sm:rounded-3xl border border-slate-700 shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="modalContent">
+        <div class="bg-slate-900 w-full max-w-3xl rounded-2xl sm:rounded-3xl border border-slate-700 shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col max-h-[92vh]" id="modalContent">
             
-            <div class="px-4 sm:px-6 py-3.5 bg-slate-800 border-b border-slate-700 flex items-center justify-between">
+            <div class="px-4 sm:px-6 py-4 bg-slate-800 border-b border-slate-700 flex items-center justify-between">
                 <div class="flex items-center space-x-3 truncate pr-2">
-                    <div id="modalIcon" class="w-9 h-9 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-lg text-medical-cyan flex-shrink-0">
+                    <div id="modalIcon" class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-xl text-medical-cyan flex-shrink-0">
                         <i class="fa-solid fa-cube"></i>
                     </div>
                     <div class="truncate">
-                        <span id="modalCategoryBadge" class="text-[9px] sm:text-[10px] uppercase font-black tracking-wider text-medical-cyan block truncate"></span>
+                        <span id="modalCategoryBadge" class="text-[10px] uppercase font-black tracking-wider text-medical-cyan block truncate"></span>
                         <h3 id="modalTitle" class="text-base sm:text-xl font-black text-white leading-tight truncate"></h3>
                     </div>
                 </div>
-                <button onclick="closeProductModal()" class="w-8 h-8 rounded-full bg-slate-700 hover:bg-slate-600 text-slate-300 flex items-center justify-center transition flex-shrink-0">
-                    <i class="fa-solid fa-xmark"></i>
+                <button onclick="closeProductModal()" class="w-9 h-9 rounded-full bg-slate-700 hover:bg-slate-600 text-slate-300 flex items-center justify-center transition flex-shrink-0">
+                    <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
 
-            <div class="p-4 sm:p-6 overflow-y-auto space-y-4 sm:space-y-6 flex-1 text-slate-300 text-xs sm:text-sm">
-                <div id="modalImageContainer" class="w-full h-40 sm:h-48 rounded-xl sm:rounded-2xl bg-slate-950 border border-slate-800 p-3 flex items-center justify-center overflow-hidden">
-                    <img id="modalImage" src="" alt="joimax product" class="max-h-full max-w-full object-contain filter drop-shadow-lg" />
-                </div>
-
-                <p id="modalDescription" class="leading-relaxed text-slate-300 border-b border-slate-800 pb-3 sm:pb-4 text-xs sm:text-sm"></p>
-
-                <div id="modalSubproductsSection" class="space-y-2.5">
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-medical-cyan flex items-center gap-2">
-                        <i class="fa-solid fa-sitemap"></i> Componentes e Instrumental
-                    </h4>
-                    <div id="modalSubproductsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <!-- Items -->
+            <div class="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 text-slate-300 text-xs sm:text-sm">
+                <!-- Imagen Destacada Principal/Variante -->
+                <div class="relative group">
+                    <div id="modalImageContainer" class="w-full h-48 sm:h-64 rounded-2xl bg-slate-950 border border-slate-800 p-4 flex items-center justify-center overflow-hidden">
+                        <img id="modalImage" src="" alt="joimax product" class="max-h-full max-w-full object-contain filter drop-shadow-xl transition-transform duration-300 group-hover:scale-105" />
+                    </div>
+                    <div id="modalImageBadge" class="absolute bottom-3 right-3 bg-slate-900/90 text-medical-cyan text-[10px] font-bold px-3 py-1 rounded-full border border-slate-700 shadow-md">
+                        Imagen de Producto
                     </div>
                 </div>
 
+                <p id="modalDescription" class="leading-relaxed text-slate-300 border-b border-slate-800 pb-4 text-xs sm:text-sm"></p>
+
+                <!-- Sección de Sub-productos / Variantes Interactivas con Imágenes -->
+                <div id="modalSubproductsSection" class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-medical-cyan flex items-center gap-2">
+                            <i class="fa-solid fa-sitemap"></i> Variantes e Instrumental (Toca para inspeccionar)
+                        </h4>
+                    </div>
+                    <div id="modalSubproductsList" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <!-- Items renderizados dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Indicaciones Clínicas -->
                 <div id="modalIndicationsSection" class="space-y-2.5">
                     <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-2">
-                        <i class="fa-solid fa-notes-medical"></i> Indicaciones Clínicas
+                        <i class="fa-solid fa-notes-medical"></i> Aplicaciones e Indicaciones Clínicas
                     </h4>
                     <ul id="modalIndicationsList" class="flex flex-wrap gap-1.5">
-                        <!-- Items -->
+                        <!-- Items renderizados dinámicamente -->
                     </ul>
                 </div>
 
                 <div class="p-3 bg-blue-950/40 border border-blue-800/40 rounded-xl text-[11px] sm:text-xs text-slate-400 flex items-start gap-2">
                     <i class="fa-solid fa-shield-halved text-medical-cyan text-sm mt-0.5 flex-shrink-0"></i>
-                    <span>Configuración en quirófano y soporte por <strong>Alfredo López García</strong>.</span>
+                    <span>Configuración en quirófano, calibración y soporte directo por <strong>Alfredo López García</strong>.</span>
                 </div>
             </div>
 
             <div class="px-4 sm:px-6 py-3 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-[11px] sm:text-xs text-slate-500">
                 <span>joimax® GmbH • Endoscopic Spine</span>
-                <button onclick="closeProductModal()" class="px-3.5 py-1.5 bg-medical-accent hover:bg-blue-600 text-white font-bold rounded-xl transition">
+                <button onclick="closeProductModal()" class="px-4 py-2 bg-medical-accent hover:bg-blue-600 text-white font-bold rounded-xl transition">
                     Cerrar
                 </button>
             </div>
@@ -331,14 +278,12 @@
         <div class="footer-credits flex flex-col items-center gap-2 text-center">
             <span class="text-xs font-medium text-slate-500 uppercase tracking-widest">created by</span>
             <a href="https://j05ulr.github.io/ZeroSystems/" target="_blank" rel="noopener noreferrer" class="zero-systems-logo inline-block transition-transform hover:scale-105 opacity-80 hover:opacity-100">
-                <svg class="zero-systems-svg w-48 sm:w-56 h-auto" viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Iso/Icono Zero Systems -->
+                <svg class="zero-systems-svg" viewBox="0 0 540 120" xmlns="http://www.w3.org/2000/svg">
                     <g fill="#FFFFFF">
                         <path d="M20,65 L110,65 C125,65 130,58 135,48 L142,32 C145,25 140,20 128,20 L40,20 C25,20 20,27 15,37 L8,52 C5,59 10,65 20,65 Z" />
                         <path d="M50,95 L140,95 C155,95 160,88 165,78 L172,62 C175,55 170,50 158,50 L70,50 C55,50 50,57 45,67 L38,82 C35,89 40,95 50,95 Z" />
                         <path d="M140,15 L52,105" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
                     </g>
-                    <!-- Texto Marca -->
                     <text x="180" y="62" font-family="'Montserrat', 'Arial Black', sans-serif" font-weight="900" font-size="40" fill="#FFFFFF" letter-spacing="3">ZERO SYSTEMS</text>
                     <text x="183" y="94" font-family="'Montserrat', sans-serif" font-weight="600" font-style="italic" font-size="22" fill="#E0E0E0" letter-spacing="8">CERO LÍMITES</text>
                 </svg>
@@ -350,8 +295,8 @@
         const catalogData = [
             {
                 sectionId: 'sec-tecnicas',
-                sectionTitle: '1. TÉCNICAS PRINCIPALES',
-                sectionSubtitle: 'Sistemas de acceso endoscópico vertebral',
+                sectionTitle: '1. TÉCNICAS Y SISTEMAS ENDOSCÓPICOS',
+                sectionSubtitle: 'Sistemas de acceso mínimamente invasivo a la columna vertebral',
                 items: [
                     {
                         id: 'tessys',
@@ -360,12 +305,32 @@
                         subtitle: 'Acceso Transforaminal',
                         icon: 'fa-bone',
                         img: 'https://www.joimax.com/wp-content/uploads/2020/09/TESSYS_Product.png',
-                        description: 'Acceso lateral directo a través del foramen (Triángulo de Kambin). Descompresión de hernias discales y estenosis sin desestabilizar la columna.',
+                        description: 'Acceso lateral directo a través del foramen intervertebral (Triángulo de Kambin). Permite la descompresión precisa de hernias discales y estenosis sin desestabilizar la estructura vertebral.',
                         subproducts: [
-                            { name: 'TESSYS® Std', desc: 'Sistema estándar con dilatadores y reamers.' },
-                            { name: 'TESSYS® XT', desc: 'Instrumental extendido para anatomías complejas.' },
-                            { name: 'TESSYS® Thx', desc: 'Adaptado para región torácica.' },
-                            { name: 'TESSYS® TransSAP', desc: 'Acceso al proceso articular superior.' }
+                            { 
+                                id: 'tessys-std',
+                                name: 'TESSYS® Std', 
+                                desc: 'Sistema estándar con juego de dilatadores secuenciales y reamers para foraminoplastia.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2020/09/TESSYS_Product.png'
+                            },
+                            { 
+                                id: 'tessys-xt',
+                                name: 'TESSYS® XT', 
+                                desc: 'Instrumental de longitud extendida adaptado para abordar canal lumbar en pacientes con anatomías complejas u obesidad.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=TESSYS%C2%AE+XT'
+                            },
+                            { 
+                                id: 'tessys-thx',
+                                name: 'TESSYS® Thx', 
+                                desc: 'Set especializado para abordajes en la región torácica de la columna.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=TESSYS%C2%AE+Thx'
+                            },
+                            { 
+                                id: 'tessys-transsap',
+                                name: 'TESSYS® TransSAP', 
+                                desc: 'Técnica de resecado directo del proceso articular superior (SAP) para estenosis foraminal severa.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=TESSYS%C2%AE+TransSAP'
+                            }
                         ],
                         indications: ['Hernia discal lumbar', 'Estenosis foraminal', 'Estenosis recesal']
                     },
@@ -376,12 +341,32 @@
                         subtitle: 'Acceso Interlaminar',
                         icon: 'fa-layer-group',
                         img: 'https://www.joimax.com/wp-content/uploads/2020/09/iLESSYS_Product.png',
-                        description: 'Acceso posterior interlaminar. Ideal para descompresión del canal central, recesos laterales y técnica Over-the-Top.',
+                        description: 'Acceso posterior interlaminar ideal para la descompresión directa del canal central, recesos laterales y tratamiento de ligamento amarillo con técnica Over-the-Top.',
                         subproducts: [
-                            { name: 'iLESSYS® Standard', desc: 'Descompresión interlaminar directa.' },
-                            { name: 'iLESSYS® Pro', desc: 'Descompresión contralateral (ULBD).' },
-                            { name: 'iLESSYS® Delta', desc: 'Estenosis central severa y fusión.' },
-                            { name: 'iLESSYS® Biportal', desc: 'Soporte para técnica biportal.' }
+                            { 
+                                id: 'ilessys-std',
+                                name: 'iLESSYS® Standard', 
+                                desc: 'Cánulas y endoscopios para descompresión interlaminar directa de hernias centrales.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2020/09/iLESSYS_Product.png'
+                            },
+                            { 
+                                id: 'ilessys-pro',
+                                name: 'iLESSYS® Pro', 
+                                desc: 'Set avanzado para descompresión contralateral (ULBD) preservando la anatomía posterior.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=iLESSYS%C2%AE+Pro'
+                            },
+                            { 
+                                id: 'ilessys-delta',
+                                name: 'iLESSYS® Delta', 
+                                desc: 'Endoscopio de gran canal de trabajo (6 mm) para estenosis central severa y preparación de fusión.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=iLESSYS%C2%AE+Delta'
+                            },
+                            { 
+                                id: 'ilessys-biportal',
+                                name: 'iLESSYS® Biportal', 
+                                desc: 'Solución optimizada e instrumental para técnicas biportales (UBE).',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=iLESSYS%C2%AE+Biportal'
+                            }
                         ],
                         indications: ['Hernia discal posterior', 'Estenosis central', 'ULBD']
                     },
@@ -392,11 +377,26 @@
                         subtitle: 'Terapia del Dolor Facetario y SI',
                         icon: 'fa-wave-square',
                         img: 'https://www.joimax.com/wp-content/uploads/2020/09/MultiZYTE_Product.png',
-                        description: 'Intervención endoscópica sobre facetas articulares y articulación sacroilíaca para denervación y alivio de dolor crónico.',
+                        description: 'Tratamiento endoscópico directo sobre articulaciones facetarias y sacroilíacas. Permite la denervación por radiofrecuencia y la liberación de la cápsula articular.',
                         subproducts: [
-                            { name: 'MultiZYTE® Facet Lumbar', desc: 'Tratamiento facetario lumbar.' },
-                            { name: 'MultiZYTE® Facet Cervical', desc: 'Tratamiento facetario cervical.' },
-                            { name: 'MultiZYTE® Sacroiliac', desc: 'Tratamiento directo articulación SI.' }
+                            { 
+                                id: 'multizyte-facet-lumbar',
+                                name: 'MultiZYTE® Facet Lumbar', 
+                                desc: 'Instrumental fino para denervación de la rama media del nervio espinal a nivel lumbar.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2020/09/MultiZYTE_Product.png'
+                            },
+                            { 
+                                id: 'multizyte-facet-cervical',
+                                name: 'MultiZYTE® Facet Cervical', 
+                                desc: 'Micro-instrumental diseñado específicamente para articulaciones facetarias cervicales.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=MultiZYTE%C2%AE+Cervical'
+                            },
+                            { 
+                                id: 'multizyte-si',
+                                name: 'MultiZYTE® Sacroiliac', 
+                                desc: 'Acceso directo a la articulación sacroilíaca para desbridamiento y denervación en dolor crónico.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=MultiZYTE%C2%AE+Sacroiliac'
+                            }
                         ],
                         indications: ['Síndrome facetario', 'Dolor lumbar axial', 'Dolor sacroilíaco']
                     },
@@ -406,27 +406,47 @@
                         code: 'INTRADISCAL',
                         subtitle: 'Terapia Intradiscal',
                         icon: 'fa-bullseye',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=intENTS%C2%AE',
-                        description: 'Abordaje mínimamente invasivo para la descompresión y desposicionamiento térmico dentro del núcleo pulposo.',
+                        img: 'https://placehold.co/500x350/112240/64ffda?text=intENTS%C2%AE',
+                        description: 'Abordaje mínimamente invasivo para descompresión intradiscal y modulación térmica del núcleo pulposo en discopatías dolorosas.',
                         subproducts: [
-                            { name: 'intENTS® Lumbar', desc: 'Tratamiento intradiscal lumbar.' },
-                            { name: 'intENTS® Cervical', desc: 'Tratamiento intradiscal cervical con cánula fina.' }
+                            { 
+                                id: 'intents-lumbar',
+                                name: 'intENTS® Lumbar', 
+                                desc: 'Cánulas intradiscales lumbares con electrodos de coagulación de amplio alcance.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=intENTS%C2%AE+Lumbar'
+                            },
+                            { 
+                                id: 'intents-cervical',
+                                name: 'intENTS® Cervical', 
+                                desc: 'Cánulas ultra delgadas para descompresión cervical percutánea.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=intENTS%C2%AE+Cervical'
+                            }
                         ],
-                        indications: ['Dolor discogénico', 'Protrusión discal']
+                        indications: ['Dolor discogénico', 'Protrusión discal', 'Desgarro anular']
                     },
                     {
                         id: 'endolif',
                         title: 'EndoLIF®',
                         code: 'FUSIÓN',
-                        subtitle: 'Fusión Intersomática',
+                        subtitle: 'Fusión Intersomática Endoscópica',
                         icon: 'fa-cubes',
                         img: 'https://www.joimax.com/wp-content/uploads/2020/09/EndoLIF_Product.png',
-                        description: 'Cajas intersomáticas implantables por vía endoscópica transforaminal o interlaminar con máxima preservación anatómica.',
+                        description: 'Sistema para colocación de cajas intersomáticas por vía endoscópica transforaminal u oblicua, logrando fusión sólida con mínima agresión a tejidos suaves.',
                         subproducts: [
-                            { name: 'EndoLIF® O/On-Cage', desc: 'Caja intersomática oblicua.' },
-                            { name: 'EndoLIF® Delta Cage', desc: 'Caja posterior para L5-S1.' }
+                            { 
+                                id: 'endolif-on-cage',
+                                name: 'EndoLIF® O-Cage', 
+                                desc: 'Caja intersomática de titanio impreso en 3D para abordaje oblicuo.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2020/09/EndoLIF_Product.png'
+                            },
+                            { 
+                                id: 'endolif-delta-cage',
+                                name: 'EndoLIF® Delta Cage', 
+                                desc: 'Dispositivo intersomático expandible para nivel L5-S1 e inserción guiada por endoscopio.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=EndoLIF%C2%AE+Delta+Cage'
+                            }
                         ],
-                        indications: ['Inestabilidad lumbar', 'Espondilolistesis', 'Fusión']
+                        indications: ['Inestabilidad lumbar', 'Espondilolistesis Grado I-II', 'Fusión intersomática']
                     },
                     {
                         id: 'percusys',
@@ -435,19 +455,29 @@
                         subtitle: 'Estabilización Percutánea',
                         icon: 'fa-screwdriver-wrench',
                         img: 'https://www.joimax.com/wp-content/uploads/2020/09/Percusys_Product.png',
-                        description: 'Sistema percutáneo de tornillos pediculares y barras para fijación vertebral de mínima invasión.',
+                        description: 'Sistema de fijación percutánea con tornillos pediculares cannulados y barras percurvadas para estabilidad rígida o semi-rígida de la columna.',
                         subproducts: [
-                            { name: 'Tornillos Pediculares', desc: 'Poliaxiales y monoaxiales.' },
-                            { name: 'Barras Precurvadas', desc: 'Titanio/CoCr lordóticas.' }
+                            { 
+                                id: 'percusys-screws',
+                                name: 'Tornillos Pediculares PERCUSYS®', 
+                                desc: 'Tornillos poliaxiales cannulados con rosca de doble paso e introductor integrado.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2020/09/Percusys_Product.png'
+                            },
+                            { 
+                                id: 'percusys-rods',
+                                name: 'Barras Precurvadas de Titanio', 
+                                desc: 'Barras con contorno lordótico óptimo e inserción subfascial guiada.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=PERCUSYS%C2%AE+Barras'
+                            }
                         ],
-                        indications: ['Inestabilidad mecánica', 'Trauma vertebral', 'Fusión']
+                        indications: ['Inestabilidad mecánica', 'Trauma vertebral', 'Soporte post-fusión']
                     }
                 ]
             },
             {
                 sectionId: 'sec-torre',
-                sectionTitle: '2. TORRE NAVENTO®',
-                sectionSubtitle: 'Visualización, navegación y radiofrecuencia',
+                sectionTitle: '2. TORRE DE CONTROL NAVENTO®',
+                sectionSubtitle: 'Consolas de procesamiento, visualización 4K, radiofrecuencia y fresado',
                 items: [
                     {
                         id: 'vitegra',
@@ -455,26 +485,47 @@
                         code: 'NAVENTO',
                         subtitle: 'Documentación y Control',
                         icon: 'fa-compact-disc',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=VITEGRA%C2%AE',
-                        description: 'Unidad centralizada de control, procesamiento de video HD/4K y documentación de procedimientos.',
+                        img: 'https://placehold.co/500x350/112240/64ffda?text=VITEGRA%C2%AE',
+                        description: 'Unidad centralizada de control con pantalla táctil dual, procesamiento de video HD/4K e integración total con PACS y redes hospitalarias.',
                         subproducts: [
-                            { name: 'Vitegra® Docu', desc: 'Grabación 4K y reporte médico.' },
-                            { name: 'Vitegra® Command', desc: 'Control de periféricos.' }
+                            { 
+                                id: 'vitegra-docu',
+                                name: 'Vitegra® Docu', 
+                                desc: 'Módulo de captura de imagen y video 4K en tiempo real con exportación instantánea.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Vitegra%C2%AE+Docu'
+                            },
+                            { 
+                                id: 'vitegra-command',
+                                name: 'Vitegra® Command', 
+                                desc: 'Interfaz de control maestro para periféricos de la Torre NAVENTO®.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Vitegra%C2%AE+Command'
+                            }
                         ],
-                        indications: ['Gestión de video quirúrgico', 'PACS/DICOM']
+                        indications: ['Gestión de video quirúrgico', 'Documentación PACS/DICOM']
                     },
                     {
                         id: 'camsource',
-                        title: 'CAMSOURCE®',
+                        title: 'CAMSOURCE® 4K',
                         code: 'NAVENTO',
                         subtitle: 'Cámara 4K + Luz LED',
                         icon: 'fa-video',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=CAMSOURCE%C2%AE',
-                        description: 'Consola combo de alta definición con iluminación fría LED y sensor 4K ultra nítido.',
+                        img: 'https://placehold.co/500x350/112240/64ffda?text=CAMSOURCE%C2%AE+4K',
+                        description: 'Consola combo de alta definición con fuente de luz fría LED integrada y sensor 4K de alta fidelidad de color para estructuras nerviosas.',
                         subproducts: [
-                            { name: 'Camsource® LED 4K', desc: 'Cabezal ligero con botones asignables.' }
+                            { 
+                                id: 'camsource-led',
+                                name: 'Camsource® LED 4K Console', 
+                                desc: 'Consola con fuente LED de larga duración y calibración automática de blancos.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=CAMSOURCE%C2%AE+Console'
+                            },
+                            { 
+                                id: 'camsource-head',
+                                name: 'Cabezal de Cámara 4K', 
+                                desc: 'Cabezal ergonómico autoclavable con botones configurables de zoom y captura.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Cabezal+C%C3%A1mara+4K'
+                            }
                         ],
-                        indications: ['Visualización endoscópica de alta definición']
+                        indications: ['Visualización endoscópica de alta precisión']
                     },
                     {
                         id: 'intracs',
@@ -482,367 +533,399 @@
                         code: 'NAVENTO',
                         subtitle: 'Navegación Electromagnética',
                         icon: 'fa-location-crosshairs',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=INTRACS%C2%AE+EM',
-                        description: 'Navegador electromagnético continuo para el seguimiento preciso de cánulas y herramientas sin línea de visión.',
+                        img: 'https://placehold.co/500x350/112240/64ffda?text=INTRACS%C2%AE+EM',
+                        description: 'Sistema de navegación electromagnética continua para el seguimiento en tiempo real de instrumentación y ópticas dentro del canal espinal.',
                         subproducts: [
-                            { name: 'Consola INTRACS® EM', desc: 'Procesamiento de imagen electromagnética.' },
-                            { name: 'Agujas Navegadas', desc: 'Sensor electromagnético en punta.' }
+                            { 
+                                id: 'intracs-console',
+                                name: 'Consola INTRACS® EM', 
+                                desc: 'Procesador de campos electromagnéticos para seguimiento espacial 3D.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Consola+INTRACS%C2%AE'
+                            },
+                            { 
+                                id: 'intracs-needles',
+                                name: 'Agujas y Cánulas Navegadas', 
+                                desc: 'Sensores EM integrados en la punta para alineación sin exposición fluoroscópica continua.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Agujas+Navegadas'
+                            }
                         ],
-                        indications: ['Precisión de abordaje', 'Reducción de radiación']
+                        indications: ['Precisión en acceso foraminal', 'Reducción de radiación']
                     },
                     {
                         id: 'shrill',
                         title: 'SHRILL®',
                         code: 'NAVENTO',
-                        subtitle: 'Fresado Óseo',
+                        subtitle: 'Motor de Fresado Óseo',
                         icon: 'fa-dharmachakra',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=SHRILL%C2%AE',
-                        description: 'Motor de alta velocidad y fresas Shrill® Spinner Blades para laminotomía y resecado de tejido óseo.',
+                        img: 'https://placehold.co/500x350/112240/64ffda?text=SHRILL%C2%AE',
+                        description: 'Consola y motor de alta velocidad con reverso automático para el resecado rápido y seguro de tejido óseo y ligamentario.',
                         subproducts: [
-                            { name: 'Shrill® Shaver Blades', desc: 'Fresas diamantadas y de corte.' }
+                            { 
+                                id: 'shrill-console',
+                                name: 'Consola Motor Shrill®', 
+                                desc: 'Unidad de potencia programable con pedal multifunción.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Consola+Shrill%C2%AE'
+                            },
+                            { 
+                                id: 'shrill-blades',
+                                name: 'Shrill® Shaver Blades', 
+                                desc: 'Fresas diamantadas, de corte y brocas de foraminoplastia de varios diámetros.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Shrill%C2%AE+Blades'
+                            }
                         ],
-                        indications: ['Foraminoplastia', 'Resección de osteofitos']
+                        indications: ['Foraminoplastia', 'Laminotomía', 'Resección de osteofitos']
                     },
                     {
                         id: 'endovapor',
                         title: 'ENDOVAPOR® 2',
                         code: 'NAVENTO',
-                        subtitle: 'Radiofrecuencia (RF)',
+                        subtitle: 'Generador de Radiofrecuencia (RF)',
                         icon: 'fa-bolt',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=ENDOVAPOR%C2%AE+2',
-                        description: 'Generador bipolar y monopolar para hemostasia efectiva y shrinking del disco.',
+                        img: 'https://placehold.co/500x350/112240/64ffda?text=ENDOVAPOR%C2%AE+2',
+                        description: 'Generador multifuncional bipolar y monopolar especializado en electrohemostasia efectiva, shrinking discal y ablación tisular en medio salino.',
                         subproducts: [
-                            { name: 'Vaporflex®', desc: 'Electrodos RF orientables.' },
-                            { name: 'Legato® / Vaporace®', desc: 'Sondas polares de ablación.' }
+                            { 
+                                id: 'vaporflex',
+                                name: 'Vaporflex® Probes', 
+                                desc: 'Electrodos de radiofrecuencia articulados con punta orientable.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Vaporflex%C2%AE'
+                            },
+                            { 
+                                id: 'vaporace',
+                                name: 'Vaporace® / Legato®', 
+                                desc: 'Sondas polares rígidas para ablación rápida y control hemostático.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Vaporace%C2%AE'
+                            }
                         ],
-                        indications: ['Hemostasia intraoperatoria', 'Ablación de tejido']
+                        indications: ['Hemostasia intracanular', 'Modulación del anillo discal', 'Ablación de tejido']
                     },
                     {
                         id: 'versicon',
                         title: 'VERSICON®',
                         code: 'NAVENTO',
-                        subtitle: 'Bomba de Irrigación',
+                        subtitle: 'Bomba de Irrigación de Alta Capacidad',
                         icon: 'fa-droplet',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=VERSICON%C2%AE',
-                        description: 'Bomba con control preciso de presión y flujo para mantener un campo visual nítido y libre de sangrado.',
+                        img: 'https://placehold.co/500x350/112240/64ffda?text=VERSICON%C2%AE',
+                        description: 'Bomba de irrigación continua con control automático de flujo y presión regulada para mantener el campo visual claro en todo momento.',
                         subproducts: [
-                            { name: 'Versicon® Spine Mode', desc: 'Presión adaptable al canal espinal.' }
+                            { 
+                                id: 'versicon-unit',
+                                name: 'Bomba VERSICON®', 
+                                desc: 'Unidad de irrigación con sensores de presión intra-canal.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Bomba+Versicon%C2%AE'
+                            },
+                            { 
+                                id: 'versicon-tubing',
+                                name: 'Tubuladura Esterilizable', 
+                                desc: 'Set de mangueras de doble vía con conectores de acople rápido.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Tubuladura+Versicon%C2%AE'
+                            }
                         ],
-                        indications: ['Irrigación y visibilidad continua']
-                    },
-                    {
-                        id: 'robofix',
-                        title: 'ROBOFIX®',
-                        code: 'SOPORTE',
-                        subtitle: 'Soporte Robótico',
-                        icon: 'fa-robot',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=ROBOFIX%C2%AE',
-                        description: 'Brazo de sujeción articulado que sostiene la óptica de manera estable, permitiendo técnica bimanual.',
-                        subproducts: [
-                            { name: 'Brazo RoboFIX®', desc: 'Sujeción de alta estabilidad.' }
-                        ],
-                        indications: ['Soporte óptico bimanual']
+                        indications: ['Irrigación continua', 'Control de presión hidráulica']
                     }
                 ]
             },
             {
                 sectionId: 'sec-endoscopios',
-                sectionTitle: '3. ÓPTICAS Y SIMULADORES',
-                sectionSubtitle: 'Endoscopios y modelos de capacitación',
+                sectionTitle: '3. ÓPTICAS, SOPORTES Y CAPACITACIÓN',
+                sectionSubtitle: 'Endoscopios de trabajo, soporte robótico y simuladores anatómicos',
                 items: [
                     {
                         id: 'endoscopes',
                         title: 'ENDOSCOPIOS JOIMAX®',
                         code: 'ÓPTICAS',
-                        subtitle: 'Ópticas HD de Trabajo',
+                        subtitle: 'Ópticas HD de Canal Integrado',
                         icon: 'fa-eye',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=Ópticas+joimax',
-                        description: 'Ópticas con canal de trabajo integrado y ángulos variados (15°, 30°) para visualización óptima.',
+                        img: 'https://placehold.co/500x350/112240/64ffda?text=%C3%93pticas+joimax%C2%AE',
+                        description: 'Ópticas de alta resolución con canal de trabajo eccéntrico integrado y diferentes ángulos de visión para una exploración óptima.',
                         subproducts: [
-                            { name: 'FORAMINOSCOPES®', desc: 'Para abordaje transforaminal.' },
-                            { name: 'LAMINOSCOPES®', desc: 'Para abordaje interlaminar.' },
-                            { name: 'NUCLEOSCOPES®', desc: 'Para abordaje intradiscal.' }
+                            { 
+                                id: 'foraminoscopes',
+                                name: 'FORAMINOSCOPES®', 
+                                desc: 'Ópticas diseñadas para acceso transforaminal TESSYS®.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=FORAMINOSCOPE%C2%AE'
+                            },
+                            { 
+                                id: 'laminoscopes',
+                                name: 'LAMINOSCOPES®', 
+                                desc: 'Ópticas de gran canal diseñadas para abordaje interlaminar iLESSYS®.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=LAMINOSCOPE%C2%AE'
+                            },
+                            { 
+                                id: 'nucleoscopes',
+                                name: 'NUCLEOSCOPES®', 
+                                desc: 'Endoscopios ultradelgados para procedimientos intradiscales.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=NUCLEOSCOPE%C2%AE'
+                            }
                         ],
                         indications: ['Visualización intracanular directa']
+                    },
+                    {
+                        id: 'robofix',
+                        title: 'ROBOFIX®',
+                        code: 'SOPORTE',
+                        subtitle: 'Brazo de Sujeción Robótica',
+                        icon: 'fa-robot',
+                        img: 'https://placehold.co/500x350/112240/64ffda?text=ROBOFIX%C2%AE',
+                        description: 'Brazo articulado electromecánico de alta fijación que sostiene el endoscopio permitiendo la ejecución de técnicas a dos manos.',
+                        subproducts: [
+                            { 
+                                id: 'robofix-arm',
+                                name: 'Brazo Articulado RoboFIX®', 
+                                desc: 'Sujeción estable con liberación por pedal ergonómico.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Brazo+RoboFIX%C2%AE'
+                            }
+                        ],
+                        indications: ['Soporte óptico bimanual']
                     },
                     {
                         id: 'simulators',
                         title: 'SIMULADORES SURGICAL',
                         code: 'ENTRENAMIENTO',
-                        subtitle: 'Modelos de Capacitación',
+                        subtitle: 'Modelos Anatómicos de Capacitación',
                         icon: 'fa-graduation-cap',
-                        img: 'https://placehold.co/400x300/112240/64ffda?text=Simuladores+joimax',
-                        description: 'Modelos de simulación en seco con respuesta táctil realista para práctica de accesos TESSYS® e iLESSYS®.',
+                        img: 'https://placehold.co/500x350/112240/64ffda?text=Simuladores+joimax%C2%AE',
+                        description: 'Modelos de simulación quirúrgica en seco con densidad hística táctil realista para práctica de accesos TESSYS® e iLESSYS®.',
                         subproducts: [
-                            { name: 'Simuladores Prono/Lateral', desc: 'Anatomía sintética realista.' }
+                            { 
+                                id: 'sim-prono',
+                                name: 'Simulador Columna Lumbar Prono', 
+                                desc: 'Modelo sintético con respuesta radiológica para entrenamiento fluoroscópico.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Simulador+Prono'
+                            },
+                            { 
+                                id: 'sim-lateral',
+                                name: 'Simulador Transforaminal', 
+                                desc: 'Estructura anatómica detallada para referencias del triángulo de Kambin.',
+                                img: 'https://placehold.co/500x350/112240/64ffda?text=Simulador+Transforaminal'
+                            }
                         ],
-                        indications: ['Entrenamiento y curva de aprendizaje']
+                        indications: ['Capacitación técnica y workshops']
                     }
                 ]
             }
         ];
 
-        let activeViewMode = 'fan';
+        let currentActiveItem = null;
+        let allExpanded = false;
 
-        function renderCatalog() {
+        function renderCatalogGrid() {
             const container = document.getElementById('catalogContainer');
-            const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
-            const clearBtn = document.getElementById('clearSearch');
-
-            if (searchVal.length > 0) clearBtn.classList.remove('hidden');
-            else clearBtn.classList.add('hidden');
-
             container.innerHTML = '';
-            let totalMatches = 0;
 
-            catalogData.forEach(section => {
-                const filteredItems = section.items.filter(item => {
-                    if (!searchVal) return true;
-                    return item.title.toLowerCase().includes(searchVal) ||
-                           item.subtitle.toLowerCase().includes(searchVal) ||
-                           item.description.toLowerCase().includes(searchVal) ||
-                           item.subproducts.some(sp => sp.name.toLowerCase().includes(searchVal)) ||
-                           item.indications.some(ind => ind.toLowerCase().includes(searchVal));
-                });
-
-                if (filteredItems.length === 0) return;
-                totalMatches += filteredItems.length;
-
+            catalogData.forEach((section, idx) => {
                 const secEl = document.createElement('div');
-                secEl.className = "space-y-3 sm:space-y-4";
+                secEl.className = "bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-300";
 
+                // Header desplegable para cada sección
                 secEl.innerHTML = `
-                    <div class="border-b border-slate-800 pb-2">
-                        <h4 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-medical-cyan inline-block"></span>
-                            ${section.sectionTitle}
-                        </h4>
-                        <p class="text-[11px] sm:text-xs text-slate-400 pl-4">${section.sectionSubtitle}</p>
+                    <button onclick="toggleSection('${section.sectionId}')" class="w-full px-4 sm:px-6 py-4 flex items-center justify-between bg-slate-900 hover:bg-slate-800/80 transition focus:outline-none text-left">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-3 h-3 rounded-full bg-medical-cyan flex-shrink-0"></span>
+                            <div>
+                                <h4 class="text-sm sm:text-base font-black text-white leading-tight">
+                                    ${section.sectionTitle}
+                                </h4>
+                                <p class="text-[11px] text-slate-400 font-normal mt-0.5">${section.sectionSubtitle}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 text-slate-400">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-slate-800 rounded-md border border-slate-700 hidden sm:inline-block">${section.items.length} productos</span>
+                            <i id="chevron-${section.sectionId}" class="fa-solid fa-chevron-down text-sm transition-transform duration-300"></i>
+                        </div>
+                    </button>
+                    
+                    <div id="content-${section.sectionId}" class="hidden p-4 sm:p-5 border-t border-slate-800/80 bg-slate-950/50">
+                        <div id="grid-${section.sectionId}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+                        </div>
                     </div>
                 `;
-
-                if (activeViewMode === 'fan' && !searchVal) {
-                    const fanWrapper = document.createElement('div');
-                    fanWrapper.className = "fan-deck-wrapper py-4 sm:py-6 overflow-hidden";
-
-                    const fanDeck = document.createElement('div');
-                    fanDeck.className = "fan-deck";
-                    
-                    let itemsArray = [...filteredItems];
-                    let activeIndex = Math.floor(itemsArray.length / 2);
-
-                    const updateFanDeckPositions = () => {
-                        const cards = fanDeck.querySelectorAll('.fan-card');
-                        cards.forEach((card, idx) => {
-                            card.classList.remove('active-swipe-card');
-                            if (idx === activeIndex) {
-                                card.classList.add('active-swipe-card');
-                            }
-                        });
-                    };
-
-                    filteredItems.forEach((item, index) => {
-                        const card = document.createElement('div');
-                        card.className = "fan-card glass-panel rounded-2xl p-3.5 sm:p-4 border border-slate-700/80 flex flex-col justify-between text-left group";
-                        
-                        card.onclick = (e) => {
-                            e.stopPropagation();
-                            openProductModal(item.id);
-                        };
-
-                        card.innerHTML = `
-                            <div>
-                                <div class="flex items-center justify-between mb-1.5 sm:mb-2">
-                                    <span class="text-[8px] sm:text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-blue-500/20 text-medical-cyan border border-blue-500/30">
-                                        ${item.code}
-                                    </span>
-                                    <i class="fa-solid ${item.icon} text-slate-400 group-hover:text-medical-cyan text-xs"></i>
-                                </div>
-                                <h5 class="text-sm sm:text-base font-black text-white group-hover:text-medical-cyan transition leading-tight mb-0.5">${item.title}</h5>
-                                <p class="text-[10px] sm:text-[11px] font-semibold text-slate-400 line-clamp-1 mb-1.5">${item.subtitle}</p>
-                                <p class="text-[9px] sm:text-[10px] text-slate-400 line-clamp-3 leading-relaxed">${item.description}</p>
-                            </div>
-                            <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-[9px] sm:text-[10px] text-medical-cyan font-bold">
-                                <span>Ver Detalle</span>
-                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
-                            </div>
-                        `;
-                        fanDeck.appendChild(card);
-                    });
-
-                    // Control de gestos deslizar (Swipe) para móviles
-                    let touchStartX = 0;
-                    let touchEndX = 0;
-
-                    fanDeck.addEventListener('touchstart', (e) => {
-                        touchStartX = e.changedTouches[0].screenX;
-                    }, { passive: true });
-
-                    fanDeck.addEventListener('touchend', (e) => {
-                        touchEndX = e.changedTouches[0].screenX;
-                        handleSwipe();
-                    }, { passive: true });
-
-                    function handleSwipe() {
-                        const swipeThreshold = 35;
-                        if (touchEndX < touchStartX - swipeThreshold) {
-                            // Deslizar izquierda -> Siguiente tarjeta
-                            const firstChild = fanDeck.firstElementChild;
-                            if (firstChild) {
-                                fanDeck.appendChild(firstChild);
-                            }
-                        } else if (touchEndX > touchStartX + swipeThreshold) {
-                            // Deslizar derecha -> Tarjeta anterior
-                            const lastChild = fanDeck.lastElementChild;
-                            if (lastChild) {
-                                fanDeck.insertBefore(lastChild, fanDeck.firstElementChild);
-                            }
-                        }
-                    }
-
-                    // Controles de navegación manual
-                    const navControls = document.createElement('div');
-                    navControls.className = "flex items-center gap-4 mt-3 text-slate-400 text-xs font-semibold";
-                    navControls.innerHTML = `
-                        <button class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-xl hover:text-white transition active:scale-95" title="Anterior">
-                            <i class="fa-solid fa-chevron-left mr-1"></i> Anterior
-                        </button>
-                        <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Desliza <i class="fa-solid fa-hand-pointer text-medical-cyan"></i></span>
-                        <button class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-xl hover:text-white transition active:scale-95" title="Siguiente">
-                            Siguiente <i class="fa-solid fa-chevron-right ml-1"></i>
-                        </button>
-                    `;
-
-                    const btnPrev = navControls.querySelectorAll('button')[0];
-                    const btnNext = navControls.querySelectorAll('button')[1];
-
-                    btnPrev.onclick = () => {
-                        const lastChild = fanDeck.lastElementChild;
-                        if (lastChild) fanDeck.insertBefore(lastChild, fanDeck.firstElementChild);
-                    };
-
-                    btnNext.onclick = () => {
-                        const firstChild = fanDeck.firstElementChild;
-                        if (firstChild) fanDeck.appendChild(firstChild);
-                    };
-
-                    fanWrapper.appendChild(fanDeck);
-                    fanWrapper.appendChild(navControls);
-                    secEl.appendChild(fanWrapper);
-
-                } else {
-                    const grid = document.createElement('div');
-                    grid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4";
-
-                    filteredItems.forEach(item => {
-                        const card = document.createElement('div');
-                        card.className = "glass-panel rounded-2xl p-3.5 sm:p-4 border border-slate-800 hover:border-medical-accent transition cursor-pointer flex flex-col justify-between group active:scale-[0.98] shadow-lg";
-                        card.onclick = () => openProductModal(item.id);
-
-                        card.innerHTML = `
-                            <div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-[8px] sm:text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-blue-500/20 text-medical-cyan border border-blue-500/30">
-                                        ${item.code}
-                                    </span>
-                                    <i class="fa-solid ${item.icon} text-slate-400 group-hover:text-medical-cyan transition text-xs sm:text-sm"></i>
-                                </div>
-                                <h5 class="text-base sm:text-lg font-black text-white group-hover:text-medical-cyan transition">${item.title}</h5>
-                                <p class="text-xs font-semibold text-slate-400 mb-1.5">${item.subtitle}</p>
-                                <p class="text-xs text-slate-400 line-clamp-2 mb-3 leading-relaxed">${item.description}</p>
-                            </div>
-                            <div class="pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-                                <span class="text-[10px] sm:text-[11px] text-slate-400"><i class="fa-solid fa-list-check mr-1"></i> ${item.subproducts.length} ítems</span>
-                                <span class="text-xs font-bold text-medical-cyan flex items-center gap-1 group-hover:translate-x-1 transition">
-                                    Detalles <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                                </span>
-                            </div>
-                        `;
-                        grid.appendChild(card);
-                    });
-
-                    secEl.appendChild(grid);
-                }
 
                 container.appendChild(secEl);
-            });
 
-            if (totalMatches === 0) {
-                container.innerHTML = `
-                    <div class="py-10 text-center text-slate-500 space-y-2">
-                        <i class="fa-solid fa-magnifying-glass text-2xl mb-1"></i>
-                        <p class="font-bold text-slate-300 text-sm">Sin coincidencias.</p>
-                        <p class="text-xs">Prueba buscando "Hernia", "TESSYS", "4K" o "RF".</p>
-                    </div>
-                `;
-            }
+                // Llenar cuadrícula de items de la sección
+                const grid = document.getElementById(`grid-${section.sectionId}`);
+
+                section.items.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = "glass-panel rounded-2xl p-4 border border-slate-800 card-hover cursor-pointer flex flex-col justify-between group active:scale-[0.99] shadow-lg";
+                    card.onclick = () => openProductModal(item);
+
+                    card.innerHTML = `
+                        <div>
+                            <!-- Badge e Icono -->
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-blue-500/20 text-medical-cyan border border-blue-500/30">
+                                    ${item.code}
+                                </span>
+                                <i class="fa-solid ${item.icon} text-slate-400 group-hover:text-medical-cyan transition text-sm"></i>
+                            </div>
+
+                            <!-- Imagen de Sección Principal -->
+                            <div class="w-full h-36 rounded-xl bg-slate-950 border border-slate-800/80 mb-3 overflow-hidden p-2 flex items-center justify-center relative">
+                                <img src="${item.img}" 
+                                     onerror="this.src='https://placehold.co/400x300/112240/64ffda?text=${encodeURIComponent(item.title)}'" 
+                                     alt="${item.title}" 
+                                     class="max-h-full max-w-full object-contain filter drop-shadow group-hover:scale-105 transition-transform duration-300">
+                                <span class="absolute bottom-1.5 right-1.5 bg-slate-900/90 text-[8px] font-bold text-slate-300 px-1.5 py-0.5 rounded border border-slate-700">
+                                    ${item.subproducts.length} variantes
+                                </span>
+                            </div>
+
+                            <h5 class="text-base font-black text-white group-hover:text-medical-cyan transition leading-tight mb-1">${item.title}</h5>
+                            <p class="text-xs font-semibold text-slate-400 mb-2">${item.subtitle}</p>
+                            <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed mb-3">${item.description}</p>
+                        </div>
+
+                        <!-- Sub-productos vista previa corta -->
+                        <div>
+                            <div class="py-2 border-t border-slate-800/80 flex flex-wrap gap-1 mb-3">
+                                ${item.subproducts.map(sp => `
+                                    <span onclick="event.stopPropagation(); openVariantModal('${item.id}', '${sp.id}')" 
+                                          class="text-[9px] font-medium bg-slate-900 hover:bg-blue-900/50 hover:text-medical-cyan text-slate-300 px-2 py-0.5 rounded border border-slate-700/60 transition inline-block">
+                                        <i class="fa-solid fa-camera text-[8px] mr-1 text-slate-500"></i>${sp.name}
+                                    </span>
+                                `).join('')}
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs text-medical-cyan font-bold">
+                                <span>Ver Información Completa</span>
+                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition text-xs"></i>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            });
         }
 
-        function switchView(mode) {
-            activeViewMode = mode;
-            const btnFan = document.getElementById('btnViewFan');
-            const btnGrid = document.getElementById('btnViewGrid');
-
-            if (mode === 'fan') {
-                btnFan.className = "px-3.5 py-1.5 rounded-xl font-bold bg-medical-accent text-white transition flex items-center gap-2 whitespace-nowrap active:scale-95";
-                btnGrid.className = "px-3.5 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 whitespace-nowrap active:scale-95";
+        function toggleSection(sectionId) {
+            const content = document.getElementById(`content-${sectionId}`);
+            const chevron = document.getElementById(`chevron-${sectionId}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                chevron.classList.add('rotate-180');
             } else {
-                btnGrid.className = "px-3.5 py-1.5 rounded-xl font-bold bg-medical-accent text-white transition flex items-center gap-2 whitespace-nowrap active:scale-95";
-                btnFan.className = "px-3.5 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 whitespace-nowrap active:scale-95";
+                content.classList.add('hidden');
+                chevron.classList.remove('rotate-180');
             }
-            renderCatalog();
         }
 
-        function filterProducts() {
-            renderCatalog();
-        }
+        function toggleAllSections() {
+            allExpanded = !allExpanded;
+            const btnText = document.getElementById('toggleAllBtnText');
+            const mainChevron = document.getElementById('mainCatalogChevron');
 
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            renderCatalog();
-        }
+            catalogData.forEach(section => {
+                const content = document.getElementById(`content-${section.sectionId}`);
+                const chevron = document.getElementById(`chevron-${section.sectionId}`);
 
-        function openProductModal(id) {
-            let foundItem = null;
-            catalogData.forEach(sec => {
-                const match = sec.items.find(i => i.id === id);
-                if (match) foundItem = match;
+                if (allExpanded) {
+                    content.classList.remove('hidden');
+                    chevron.classList.add('rotate-180');
+                } else {
+                    content.classList.add('hidden');
+                    chevron.classList.remove('rotate-180');
+                }
             });
 
-            if (!foundItem) return;
+            if (allExpanded) {
+                btnText.innerText = "Colapsar Todo";
+                mainChevron.classList.add('rotate-180');
+            } else {
+                btnText.innerText = "Desplegar Todo";
+                mainChevron.classList.remove('rotate-180');
+            }
+        }
 
-            document.getElementById('modalTitle').innerText = foundItem.title;
-            document.getElementById('modalCategoryBadge').innerText = foundItem.code + ' • ' + foundItem.subtitle;
-            document.getElementById('modalDescription').innerText = foundItem.description;
-            document.getElementById('modalIcon').innerHTML = `<i class="fa-solid ${foundItem.icon}"></i>`;
+        function openProductModal(item) {
+            currentActiveItem = item;
+
+            document.getElementById('modalTitle').innerText = item.title;
+            document.getElementById('modalCategoryBadge').innerText = item.code + ' • ' + item.subtitle;
+            document.getElementById('modalDescription').innerText = item.description;
+            document.getElementById('modalIcon').innerHTML = `<i class="fa-solid ${item.icon}"></i>`;
+            document.getElementById('modalImageBadge').innerText = 'Imagen General: ' + item.title;
             
             const imgEl = document.getElementById('modalImage');
-            imgEl.src = foundItem.img;
+            imgEl.src = item.img;
             imgEl.onerror = function() {
-                this.src = 'https://placehold.co/400x300/112240/64ffda?text=' + encodeURIComponent(foundItem.title);
+                this.src = 'https://placehold.co/500x350/112240/64ffda?text=' + encodeURIComponent(item.title);
             };
 
+            // Lista de variantes interactivas con imágenes
             const subList = document.getElementById('modalSubproductsList');
             subList.innerHTML = '';
-            foundItem.subproducts.forEach(sub => {
+            item.subproducts.forEach(sub => {
                 const subEl = document.createElement('div');
-                subEl.className = "bg-slate-950 p-2.5 rounded-xl border border-slate-800";
+                subEl.className = "bg-slate-950 hover:bg-slate-900 p-2.5 rounded-xl border border-slate-800 hover:border-medical-accent/50 cursor-pointer transition flex items-center gap-3 group";
+                subEl.onclick = () => selectVariantView(sub);
+
                 subEl.innerHTML = `
-                    <p class="font-bold text-xs text-medical-cyan">${sub.name}</p>
-                    <p class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 leading-tight">${sub.desc}</p>
+                    <div class="w-14 h-14 rounded-lg bg-slate-900 border border-slate-800 p-1 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                        <img src="${sub.img}" onerror="this.src='https://placehold.co/150x150/112240/64ffda?text=Img'" alt="${sub.name}" class="max-h-full max-w-full object-contain group-hover:scale-110 transition">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="font-bold text-xs text-white group-hover:text-medical-cyan transition truncate">${sub.name}</p>
+                        <p class="text-[10px] text-slate-400 line-clamp-2 mt-0.5 leading-tight">${sub.desc}</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-medical-cyan pr-1"></i>
                 `;
                 subList.appendChild(subEl);
             });
 
+            // Lista de indicaciones
             const indList = document.getElementById('modalIndicationsList');
             indList.innerHTML = '';
-            foundItem.indications.forEach(ind => {
+            item.indications.forEach(ind => {
                 const badge = document.createElement('li');
                 badge.className = "px-2.5 py-1 bg-emerald-950/60 border border-emerald-800/60 text-emerald-400 rounded-lg text-[11px] font-semibold flex items-center gap-1";
                 badge.innerHTML = `<i class="fa-solid fa-check text-[9px]"></i> ${ind}`;
                 indList.appendChild(badge);
             });
 
+            showModal();
+        }
+
+        function openVariantModal(itemId, variantId) {
+            let foundItem = null;
+            let foundVariant = null;
+
+            catalogData.forEach(sec => {
+                sec.items.forEach(i => {
+                    if (i.id === itemId) {
+                        foundItem = i;
+                        const v = i.subproducts.find(sp => sp.id === variantId);
+                        if (v) foundVariant = v;
+                    }
+                });
+            });
+
+            if (foundItem && foundVariant) {
+                openProductModal(foundItem);
+                selectVariantView(foundVariant);
+            }
+        }
+
+        function selectVariantView(variant) {
+            const imgEl = document.getElementById('modalImage');
+            imgEl.src = variant.img;
+            imgEl.onerror = function() {
+                this.src = 'https://placehold.co/500x350/112240/64ffda?text=' + encodeURIComponent(variant.name);
+            };
+
+            document.getElementById('modalImageBadge').innerText = 'Variante: ' + variant.name;
+            document.getElementById('modalDescription').innerHTML = `
+                <strong class="text-medical-cyan block mb-1">${variant.name}:</strong>
+                ${variant.desc}
+            `;
+            
+            // Scroll suave a la imagen
+            document.getElementById('modalImageContainer').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function showModal() {
             const modal = document.getElementById('productModal');
             const content = document.getElementById('modalContent');
             modal.classList.remove('hidden');
@@ -870,7 +953,7 @@ VERSION:3.0
 N:López García;Alfredo;;;
 FN:ALFREDO LÓPEZ GARCÍA
 TITLE:TÉCNICO EN ENDOSCOPIA - Especialista en Columna
-ORG:joimax® GmbH
+ORG:Comercializadora Médica MAVA / joimax® GmbH
 TEL;TYPE=CELL:+525545992601
 EMAIL:alopez@mava.com.mx
 NOTE:Especialista en Soporte Técnico de Cirugía Endoscópica de Columna. Certificado por joimax® GmbH Alemania.
@@ -886,7 +969,7 @@ END:VCARD`;
         }
 
         window.onload = function() {
-            renderCatalog();
+            renderCatalogGrid();
         };
     </script>
 </body>
