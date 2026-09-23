@@ -70,112 +70,84 @@
 </head>
 <body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-medical-accent selection:text-white">
 
-    <!-- Header Fijo -->
-    <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
-        <div class="max-w-6xl mx-auto px-4 h-16 sm:h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3 sm:space-x-4">
-                <!-- LOGO MAVA -->
-                <a href="https://www.mava.com.mx/" target="_blank" rel="noopener font-black" class="h-10 sm:h-12 px-3 py-1 bg-white rounded-xl flex items-center justify-center shadow-lg border border-slate-200 flex-shrink-0 transition transform hover:scale-105 active:scale-95 group">
-                    <div class="flex items-center gap-1.5">
-                        <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 font-sans">MAVA</span>
-                        <div class="flex flex-col border-l border-slate-300 pl-1.5 text-left leading-none">
-                            <span class="text-[9px] sm:text-[10px] font-black tracking-wider text-blue-700 uppercase">SOLUCIÓN</span>
-                            <span class="text-[8px] sm:text-[9px] font-extrabold tracking-wider text-emerald-600 uppercase">REAL</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <div class="truncate">
-                    <h1 class="text-xs sm:text-sm font-black text-white tracking-tight leading-none truncate">ALFREDO LÓPEZ GARCÍA</h1>
-                    <p class="text-[10px] sm:text-[11px] font-semibold text-medical-cyan truncate">Comercializadora Médica MAVA</p>
-                </div>
-            </div>
-
-            <div class="flex items-center space-x-2 flex-shrink-0">
-                <button onclick="downloadVCard()" class="px-3 py-2 sm:px-4 sm:py-2.5 bg-medical-accent hover:bg-blue-600 text-white text-xs font-bold rounded-xl shadow-lg flex items-center gap-2 transition active:scale-95">
-                    <i class="fa-solid fa-vcard text-sm"></i>
-                    <span class="hidden sm:inline">Guardar Contacto</span>
-                </button>
-            </div>
-        </div>
-    </header>
-
     <!-- Contenido Principal -->
     <main class="flex-1 max-w-6xl w-full mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6 sm:space-y-8">
 
         <!-- Perfil y Datos Principales -->
-        <section class="glass-panel rounded-2xl sm:rounded-3xl p-4 sm:p-8 relative overflow-hidden shadow-2xl border border-slate-800">
+        <section class="glass-panel rounded-2xl sm:rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-2xl border border-slate-800">
             <div class="absolute -top-24 -right-24 w-72 h-72 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center relative z-10">
+            <div class="flex flex-col items-center text-center relative z-10 max-w-2xl mx-auto space-y-5">
                 
-                <!-- Avatar & Certificado -->
-                <div class="lg:col-span-4 flex flex-col items-center text-center">
-                    <div class="relative">
-                        <div class="w-36 h-36 sm:w-44 sm:h-44 rounded-3xl p-1 bg-gradient-to-b from-cyan-400 via-blue-600 to-slate-900 shadow-2xl flex items-center justify-center overflow-hidden">
-                            <img src="https://scontent.fmex5-1.fna.fbcdn.net/v/t39.30808-6/814800592_2630024717467400_703187913141889583_n.jpg?stp=dst-jpg_tt6&cstp=mx896x1195&ctp=s704x704&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEfDR-guk6Si12IB70S5nn5bRfE1LU1CKhtF8TUtTUIqLXUt9ApJt6YkJcNpirrwSv-w0mx1UcPWbft8Qph2q09&_nc_ohc=cKojGuwTJ98Q7kNvwEXrMik&_nc_oc=AdogEJwysck_pe9toMBe_fmdAA6fLxP7h6glmZET5NlRUIA1IWUuGkMUjaGqZzfo9l4hVK3nMRePISkSCf51fL6E&_nc_zt=23&_nc_ht=scontent.fmex5-1.fna&_nc_gid=gq03xRrFFeiNplHgz_KxwA&_nc_ss=7b2a8&oh=00_AQKHn1xHY2aUswoPDB2J1CG96rsmac5U18g3h5iFocN9BQ&oe=6AB2AC57" 
-                                 onerror="this.src='https://placehold.co/300x300/112240/64ffda?text=Alfredo+L%C3%B3pez'" 
-                                 alt="Alfredo López García" class="w-full h-full object-cover rounded-[22px]">
-                        </div>
-                        <span class="absolute bottom-2 right-2 bg-emerald-500 border-2 border-slate-900 w-4 h-4 sm:w-5 sm:h-5 rounded-full" title="Disponible para Soporte"></span>
-                    </div>
+                <!-- Recuadro arriba de la foto -->
+                <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-medical-cyan text-xs sm:text-sm font-semibold shadow-sm">
+                    <i class="fa-solid fa-user-gear"></i> Soporte Especializado en Quirófano
+                </div>
 
-                    <div class="mt-4 bg-slate-900/90 border border-medical-border rounded-2xl p-2.5 sm:p-3 w-full max-w-xs shadow-md flex items-center gap-3">
-                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg sm:text-xl flex-shrink-0">
-                            <i class="fa-solid fa-certificate"></i>
-                        </div>
-                        <div class="text-left text-xs">
-                            <p class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400">Certificado por</p>
-                            <p class="font-extrabold text-white text-xs sm:text-sm">joimax® GmbH <span class="text-xs">🇩🇪</span></p>
-                            <p class="text-[9px] sm:text-[10px] text-medical-cyan">Product Training Specialist</p>
-                        </div>
+                <!-- Avatar Centrado -->
+                <div class="relative my-2">
+                    <div class="w-40 h-40 sm:w-48 sm:h-48 rounded-3xl p-1 bg-gradient-to-b from-cyan-400 via-blue-600 to-slate-900 shadow-2xl flex items-center justify-center overflow-hidden">
+                        <img src="https://scontent.fmex5-1.fna.fbcdn.net/v/t39.30808-6/814800592_2630024717467400_703187913141889583_n.jpg?stp=dst-jpg_tt6&cstp=mx896x1195&ctp=s704x704&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEfDR-guk6Si12IB70S5nn5bRfE1LU1CKhtF8TUtTUIqLXUt9ApJt6YkJcNpirrwSv-w0mx1UcPWbft8Qph2q09&_nc_ohc=cKojGuwTJ98Q7kNvwEXrMik&_nc_oc=AdogEJwysck_pe9toMBe_fmdAA6fLxP7h6glmZET5NlRUIA1IWUuGkMUjaGqZzfo9l4hVK3nMRePISkSCf51fL6E&_nc_zt=23&_nc_ht=scontent.fmex5-1.fna&_nc_gid=gq03xRrFFeiNplHgz_KxwA&_nc_ss=7b2a8&oh=00_AQKHn1xHY2aUswoPDB2J1CG96rsmac5U18g3h5iFocN9BQ&oe=6AB2AC57" 
+                             onerror="this.src='https://placehold.co/300x300/112240/64ffda?text=Alfredo+L%C3%B3pez'" 
+                             alt="Alfredo López García" class="w-full h-full object-cover rounded-[22px]">
                     </div>
                 </div>
 
-                <!-- Detalles e Interacción -->
-                <div class="lg:col-span-8 space-y-4 sm:space-y-5">
-                    <div class="space-y-1.5 text-center lg:text-left">
-                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-medical-cyan text-[11px] sm:text-xs font-semibold">
-                            <i class="fa-solid fa-user-gear"></i> Soporte Especializado en Quirófano
-                        </div>
-                        <h2 class="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight">
-                            ALFREDO LÓPEZ GARCÍA
-                        </h2>
-                        <p class="text-sm sm:text-lg font-bold text-slate-300">
-                            TÉCNICO EN ENDOSCOPIA DE COLUMNA
-                        </p>
-                        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-2xl">
-                            Especialista en soporte para cirugía endoscópica de columna con tecnología joimax®. Acompañamiento integral en quirófano, ensamble de torre NAVENTO®, calibración e instrumental en tiempo real.
-                        </p>
+                <!-- Nombre y Puesto -->
+                <div class="space-y-1.5">
+                    <h2 class="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight">
+                        ALFREDO LÓPEZ GARCÍA
+                    </h2>
+                    <p class="text-sm sm:text-lg font-bold text-slate-300">
+                        TÉCNICO EN ENDOSCOPIA DE COLUMNA
+                    </p>
+                    <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-xl mx-auto pt-1">
+                        Especialista en soporte para cirugía endoscópica de columna con tecnología joimax®. Acompañamiento integral en quirófano, ensamble de torre NAVENTO®, calibración e instrumental en tiempo real.
+                    </p>
+                </div>
+
+                <!-- Certificación centrada debajo de la descripción -->
+                <div class="bg-slate-900/90 border border-medical-border rounded-2xl p-3 w-full max-w-sm shadow-md flex items-center justify-center gap-3 my-2">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl flex-shrink-0">
+                        <i class="fa-solid fa-certificate"></i>
                     </div>
-
-                    <!-- Botones de Contacto -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
-                        <a href="tel:+525545992601" class="flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 transition active:scale-95 group">
-                            <i class="fa-solid fa-phone text-emerald-400 text-base sm:text-lg mb-1 group-hover:scale-110 transition"></i>
-                            <span class="text-[9px] sm:text-[10px] text-slate-400">Llamar</span>
-                            <span class="text-[11px] sm:text-xs font-bold text-white truncate max-w-full">+52 55 4599 2601</span>
-                        </a>
-
-                        <a href="https://wa.me/525545992601?text=Hola%20Alfredo,%20requiero%20soporte%20técnico%20de%20joimax" target="_blank" class="flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-emerald-400/50 transition active:scale-95 group">
-                            <i class="fa-brands fa-whatsapp text-emerald-500 text-base sm:text-lg mb-1 group-hover:scale-110 transition"></i>
-                            <span class="text-[9px] sm:text-[10px] text-slate-400">WhatsApp</span>
-                            <span class="text-[11px] sm:text-xs font-bold text-white truncate">Enviar Mensaje</span>
-                        </a>
-
-                        <a href="mailto:alopez@mava.com.mx" class="flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-medical-accent/50 transition active:scale-95 group">
-                            <i class="fa-solid fa-envelope text-medical-cyan text-base sm:text-lg mb-1 group-hover:scale-110 transition"></i>
-                            <span class="text-[9px] sm:text-[10px] text-slate-400">Correo</span>
-                            <span class="text-[11px] sm:text-xs font-bold text-white truncate max-w-full">alopez@mava.com.mx</span>
-                        </a>
-
-                        <a href="https://www.linkedin.com" target="_blank" class="flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-blue-400/50 transition active:scale-95 group">
-                            <i class="fa-brands fa-linkedin text-blue-400 text-base sm:text-lg mb-1 group-hover:scale-110 transition"></i>
-                            <span class="text-[9px] sm:text-[10px] text-slate-400">Perfil Profesional</span>
-                            <span class="text-[11px] sm:text-xs font-bold text-white truncate">LinkedIn</span>
-                        </a>
+                    <div class="text-left text-xs">
+                        <p class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400">Certificado por</p>
+                        <p class="font-extrabold text-white text-xs sm:text-sm">joimax® GmbH <span class="text-xs">🇩🇪</span></p>
+                        <p class="text-[9px] sm:text-[10px] text-medical-cyan">Product Training Specialist</p>
                     </div>
+                </div>
+
+                <!-- Botones de Contacto -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full pt-2">
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/525545992601?text=Hola%20Alfredo,%20requiero%20soporte%20técnico%20de%20joimax" target="_blank" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-emerald-400/50 transition active:scale-95 group">
+                        <i class="fa-brands fa-whatsapp text-emerald-500 text-lg sm:text-xl mb-1 group-hover:scale-110 transition"></i>
+                        <span class="text-[9px] sm:text-[10px] text-slate-400">WhatsApp</span>
+                        <span class="text-[11px] sm:text-xs font-bold text-white truncate">Enviar Mensaje</span>
+                    </a>
+
+                    <!-- Correo -->
+                    <a href="mailto:alopez@mava.com.mx" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-medical-accent/50 transition active:scale-95 group">
+                        <i class="fa-solid fa-envelope text-medical-cyan text-lg sm:text-xl mb-1 group-hover:scale-110 transition"></i>
+                        <span class="text-[9px] sm:text-[10px] text-slate-400">Correo</span>
+                        <span class="text-[11px] sm:text-xs font-bold text-white truncate max-w-full">alopez@mava.com.mx</span>
+                    </a>
+
+                    <!-- Tarjeta de contacto (vCard) -->
+                    <button onclick="downloadVCard()" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-blue-400/50 transition active:scale-95 group w-full">
+                        <i class="fa-solid fa-vcard text-blue-400 text-lg sm:text-xl mb-1 group-hover:scale-110 transition"></i>
+                        <span class="text-[9px] sm:text-[10px] text-slate-400">Guardar Contacto</span>
+                        <span class="text-[11px] sm:text-xs font-bold text-white truncate">vCard</span>
+                    </button>
+
+                    <!-- Teléfono -->
+                    <a href="tel:+525545992601" class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/50 transition active:scale-95 group">
+                        <i class="fa-solid fa-phone text-emerald-400 text-lg sm:text-xl mb-1 group-hover:scale-110 transition"></i>
+                        <span class="text-[9px] sm:text-[10px] text-slate-400">Llamar</span>
+                        <span class="text-[11px] sm:text-xs font-bold text-white truncate max-w-full">+52 55 4599 2601</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -310,26 +282,26 @@
                             { 
                                 id: 'tessys-std',
                                 name: 'TESSYS® Std', 
-                                desc: 'Sistema estándar con juego de dilatadores secuenciales y reamers para foraminoplastia.',
-                                img: 'https://www.joimax.com/wp-content/uploads/2020/09/TESSYS_Product.png'
-                            },
-                            { 
-                                id: 'tessys-xt',
-                                name: 'TESSYS® XT', 
-                                desc: 'Instrumental de longitud extendida adaptado para abordar canal lumbar en pacientes con anatomías complejas u obesidad.',
-                                img: 'https://placehold.co/500x350/112240/64ffda?text=TESSYS%C2%AE+XT'
-                            },
-                            { 
-                                id: 'tessys-thx',
-                                name: 'TESSYS® Thx', 
-                                desc: 'Set especializado para abordajes en la región torácica de la columna.',
-                                img: 'https://placehold.co/500x350/112240/64ffda?text=TESSYS%C2%AE+Thx'
+                                desc: 'El juego de instrumental estándar incluye todos los instrumentos necesarios (como pinzas de agarre, corte y punzones Endo-Kerrison) para un acceso mínimamente invasivo y seguro al canal espinal y la extracción de tejido discal, osteofitos o tejido cicatricial. Las guías y los tubos están codificados por colores para facilitar su manejo. El acceso a la patología se logra mediante la dilatación gradual del tejido blando bajo control radiológico. La dilatación del foramen intervertebral en el triángulo de Kambin también se realiza por etapas, utilizando fresas coronarias codificadas por colores o taladros óseos (foraminotomía).',
+                                img: 'https://www.joimax.com/wp-content/uploads/2025/10/TESSYS-Std-1.png'
                             },
                             { 
                                 id: 'tessys-transsap',
                                 name: 'TESSYS® TransSAP', 
-                                desc: 'Técnica de resecado directo del proceso articular superior (SAP) para estenosis foraminal severa.',
-                                img: 'https://placehold.co/500x350/112240/64ffda?text=TESSYS%C2%AE+TransSAP'
+                                desc: 'TESSYS® TransSAP es el cuarto y más reciente miembro de la familia TESSYS®. Con sus descompresiones más completas y eficientes, complementa al versátil TESSYS® Std, al TESSYS® XT con mayor alcance y al TESSYS® Thx, específico para cirugía torácica. El método TransSAP emplea un abordaje adaptado a la columna vertebral y se dirige directamente a la apófisis articular superior. Esto permite una descompresión foraminal más extensa y, por consiguiente, proporciona la base óptima para la fusión endoscópica transforaminal.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2026/06/TESSYS-TransSAP.png'
+                            },
+                            { 
+                                id: 'tessys-thx',
+                                name: 'TESSYS® Thx', 
+                                desc: 'Las vértebras con formas diferentes y las restricciones espaciales impuestas por las costillas y la pleura presentan al cirujano desafíos particulares a la hora de tratar las estenosis torácicas y las hernias discales. El instrumental TESSYS® Thx es idóneo para estos desafíos, especialmente para estenosis centrales y paramedianas y hernias discales. El vástago más estrecho del endoscopio permite su uso en espacios reducidos y el mayor ángulo óptico ofrece una excelente visualización de todas las estructuras en el campo quirúrgico.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2025/10/TESSYS-THX-1.png'
+                            },
+                            { 
+                                id: 'tessys-xt',
+                                name: 'TESSYS® XT', 
+                                desc: 'La principal diferencia entre la versión XT y el modelo estándar radica en la mayor longitud de trabajo del endoscopio y los tubos de trabajo de la versión XT. Gracias a este mayor alcance, también es posible tratar a pacientes con un alto grado de obesidad.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2025/10/TESSYS-XT-1.png'
                             }
                         ],
                         indications: ['Hernia discal lumbar', 'Estenosis foraminal', 'Estenosis recesal']
@@ -346,26 +318,26 @@
                             { 
                                 id: 'ilessys-std',
                                 name: 'iLESSYS® Standard', 
-                                desc: 'Cánulas y endoscopios para descompresión interlaminar directa de hernias centrales.',
-                                img: 'https://www.joimax.com/wp-content/uploads/2020/09/iLESSYS_Product.png'
+                                desc: 'iLESSYS® le proporciona todo lo necesario para iniciarse en la endoscopia espinal interlaminar. El juego de instrumental estándar incluye el conjunto completo de instrumentos (por ejemplo , pinzas de agarre, corte y perforación) para un acceso seguro y mínimamente invasivo al canal espinal y la extracción de tejido discal, osteofitos o tejido cicatricial.<br><br>• Amplia gama de instrumentos para un acceso mínimamente invasivo seguro.<br>• Diversas pinzas, sondas de radiofrecuencia Vaporflex® y Vaporace® para la extracción de tejido discal.<br>• Su pequeño tamaño permite también el tratamiento de indicaciones cervicales.<br>• Amplias oportunidades de aplicación',
+                                img: 'https://www.joimax.com/wp-content/uploads/2025/10/Produktvorstellung_ilessys-std.png'
                             },
                             { 
                                 id: 'ilessys-pro',
                                 name: 'iLESSYS® Pro', 
-                                desc: 'Set avanzado para descompresión contralateral (ULBD) preservando la anatomía posterior.',
-                                img: 'https://placehold.co/500x350/112240/64ffda?text=iLESSYS%C2%AE+Pro'
+                                desc: 'El sistema iLESSYS® Pro se ha desarrollado en colaboración con el Dr. Christoph Hofstetter para perfeccionar la técnica interlaminar , permitiendo la laminotomía unilateral para la descompresión bilateral (ULBD). El instrumental ofrece mayor flexibilidad y una ergonomía mejorada en comparación con el instrumental estándar. El endoscopio más largo proporciona un mayor alcance para el acceso contralateral, mientras que el ángulo de visión de 15° permite una visualización más directa del canal espinal.<br><br>• Canal de trabajo más amplio para instrumentos de mayor tamaño para una resección más eficiente.<br>• Aún lo suficientemente pequeño como para funcionar dentro del canal espinal.<br>• Aplicación flexible para técnicas complejas de alto impacto.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2025/10/Illustration_ilessys-pro.png'
                             },
                             { 
                                 id: 'ilessys-delta',
                                 name: 'iLESSYS® Delta', 
-                                desc: 'Endoscopio de gran canal de trabajo (6 mm) para estenosis central severa y preparación de fusión.',
-                                img: 'https://placehold.co/500x350/112240/64ffda?text=iLESSYS%C2%AE+Delta'
+                                desc: 'iLESSYS® Delta se desarrolló a partir de las aportaciones de numerosos cirujanos endoscópicos de gran experiencia. Proporciona herramientas para una extracción más completa y eficiente de estructuras óseas en varios niveles. El mayor diámetro del endoscopio permite el uso de instrumentos de gran diámetro, lo que facilita la extracción más eficaz del tejido óseo patológico y reduce el tiempo quirúrgico.<br><br>• Diámetro máximo del canal de trabajo<br>• Descompresión extensa con potentes golpes Endo-Kerrision.<br>• Laminotomía eficiente con cuchillas especiales Shrill ® Diamond Shaver.<br>• Complementado con la sonda de radiofrecuencia Vaporace® .<br>• Para una descompresión ósea masiva en varios niveles.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2025/10/Produktvorstellung_ilessys-delta.png'
                             },
                             { 
                                 id: 'ilessys-biportal',
                                 name: 'iLESSYS® Biportal', 
-                                desc: 'Solución optimizada e instrumental para técnicas biportales (UBE).',
-                                img: 'https://placehold.co/500x350/112240/64ffda?text=iLESSYS%C2%AE+Biportal'
+                                desc: 'La endoscopia biportal unilateral (UBE, por sus siglas en inglés) está revolucionando la endoscopia espinal. La separación del canal endoscópico y el canal de trabajo permite un acceso endoscópico con un rango de trabajo máximo, lo que posibilita un campo de aplicación interlaminar más amplio. La UBE es una opción de tratamiento beneficiosa para estenosis centrales, fusiones interlaminarias asistidas y el manejo de complicaciones (p. ej., desgarros durales) en la columna lumbar inferior.<br><br>• Herramienta de triangulación e instrumental a medida para un acceso biportal preciso.<br>• Tubo de trabajo grande con válvula integrada para flujo de agua unidireccional controlado.<br>• Control de presión y caudal con la bomba de riego Versicon® .<br>• Para una aplicación segura y una visión clara y constante.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2025/02/iLessys-Biportal-Grafik-2025-1536x1213.png'
                             }
                         ],
                         indications: ['Hernia discal posterior', 'Estenosis central', 'ULBD']
@@ -381,21 +353,15 @@
                         subproducts: [
                             { 
                                 id: 'multizyte-facet-lumbar',
-                                name: 'MultiZYTE® Facet Lumbar', 
-                                desc: 'Instrumental fino para denervación de la rama media del nervio espinal a nivel lumbar.',
-                                img: 'https://www.joimax.com/wp-content/uploads/2020/09/MultiZYTE_Product.png'
+                                name: 'MultiZYTE®', 
+                                desc: 'El juego de instrumentos MultiZYTE® contiene todos los instrumentos reutilizables necesarios para el acceso atraumático, así como para la palpación, preparación y eliminación de los tejidos blandos necesarios para el tratamiento del síndrome de la articulación facetaria y sacroilíaca.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2026/08/MultiZYTE-Anatomy.png'
                             },
                             { 
                                 id: 'multizyte-facet-cervical',
-                                name: 'MultiZYTE® Facet Cervical', 
-                                desc: 'Micro-instrumental diseñado específicamente para articulaciones facetarias cervicales.',
-                                img: 'https://placehold.co/500x350/112240/64ffda?text=MultiZYTE%C2%AE+Cervical'
-                            },
-                            { 
-                                id: 'multizyte-si',
-                                name: 'MultiZYTE® Sacroiliac', 
-                                desc: 'Acceso directo a la articulación sacroilíaca para desbridamiento y denervación en dolor crónico.',
-                                img: 'https://placehold.co/500x350/112240/64ffda?text=MultiZYTE%C2%AE+Sacroiliac'
+                                name: 'MultiZYTE® FACET CERVICAL', 
+                                desc: 'Debido a la complejidad de la anatomía de la columna cervical y a la proximidad de sus estructuras, el tratamiento de las articulaciones facetarias cervicales sigue siendo un reto para muchos cirujanos. El sistema cervical MultiZYTE® Facet se diseñó exclusivamente para su aplicación en el cuello uterino. Sus instrumentos especiales, más delgados, están optimizados para las condiciones anatómicas, mientras que el uso de sondas bipolares Legato® permite una coagulación y vaporización precisas y seguras.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2026/08/MultiZYTE-Facet-Cervical.jpg'
                             }
                         ],
                         indications: ['Síndrome facetario', 'Dolor lumbar axial', 'Dolor sacroilíaco']
@@ -412,14 +378,14 @@
                             { 
                                 id: 'intents-lumbar',
                                 name: 'intENTS® Lumbar', 
-                                desc: 'Cánulas intradiscales lumbares con electrodos de coagulación de amplio alcance.',
-                                img: 'https://placehold.co/500x350/112240/64ffda?text=intENTS%C2%AE+Lumbar'
+                                desc: 'El instrumental lumbar intENTS® incluye todos los instrumentos reutilizables necesarios para acceder al espacio intradiscal y reducir el volumen del núcleo pulposo. El vástago opcional Nucleoscope® permite al cirujano controlar el campo quirúrgico y el resultado del procedimiento mediante endoscopia.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2024/04/intENTS-1536x772.png'
                             },
                             { 
                                 id: 'intents-cervical',
                                 name: 'intENTS® Cervical', 
-                                desc: 'Cánulas ultra delgadas para descompresión cervical percutánea.',
-                                img: 'https://placehold.co/500x350/112240/64ffda?text=intENTS%C2%AE+Cervical'
+                                desc: 'Para la aplicación cervical se utiliza un acceso ventral. Los instrumentos de este conjunto están diseñados para adaptarse a las dimensiones más pequeñas de la columna cervical.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2024/04/intENTS_Cervical-1536x772.png'
                             }
                         ],
                         indications: ['Dolor discogénico', 'Protrusión discal', 'Desgarro anular']
@@ -868,7 +834,7 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-bold text-xs text-white group-hover:text-medical-cyan transition truncate">${sub.name}</p>
-                        <p class="text-[10px] text-slate-400 line-clamp-2 mt-0.5 leading-tight">${sub.desc}</p>
+                        <p class="text-[10px] text-slate-400 line-clamp-2 mt-0.5 leading-tight">${sub.desc.replace(/<br\s*[\/]?>/gi, " ")}</p>
                     </div>
                     <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-medical-cyan pr-1"></i>
                 `;
