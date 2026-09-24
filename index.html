@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es" class="h-full bg-slate-950 font-sans text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
 <head>
@@ -31,13 +30,11 @@
         }
     </script>
     <style>
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #0a192f; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
 
-        /* Glassmorphism */
         .glass-panel {
             background: rgba(17, 34, 64, 0.85);
             backdrop-filter: blur(12px);
@@ -54,7 +51,6 @@
             border-color: rgba(100, 255, 218, 0.4);
         }
 
-        /* Ajuste de ancho del logo */
         .zero-systems-svg {
             width: 200px;
             max-width: 100%;
@@ -156,7 +152,7 @@
         </div>
 
         <section id="catalogContainer" class="space-y-6">
-            </section>
+        </section>
 
     </main>
 
@@ -180,8 +176,8 @@
 
             <div class="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 text-slate-300 text-xs sm:text-sm">
                 <div class="relative group">
-                    <div id="modalImageContainer" class="w-full h-56 sm:h-72 rounded-2xl bg-slate-950 border border-slate-800 overflow-hidden relative">
-                        <img id="modalImage" src="" alt="joimax product" class="w-full h-full object-cover filter drop-shadow-xl transition-transform duration-300 group-hover:scale-105" />
+                    <div id="modalImageContainer" class="w-full h-56 sm:h-72 rounded-2xl bg-slate-950 border border-slate-800 overflow-hidden relative flex items-center justify-center p-2">
+                        <img id="modalImage" src="" alt="joimax product" class="w-full h-full object-contain filter drop-shadow-xl transition-transform duration-300" />
                     </div>
                     <div id="modalImageBadge" class="absolute bottom-3 right-3 bg-slate-900/90 text-medical-cyan text-[10px] font-bold px-3 py-1 rounded-full border border-slate-700 shadow-md">
                         Imagen de Producto
@@ -193,11 +189,11 @@
                 <div id="modalSubproductsSection" class="space-y-3">
                     <div class="flex items-center justify-between">
                         <h4 class="text-xs font-bold uppercase tracking-wider text-medical-cyan flex items-center gap-2">
-                            <i class="fa-solid fa-sitemap"></i> Variantes e Instrumental (Toca para inspeccionar)
+                            <i class="fa-solid fa-sitemap"></i> Variantes e Instrumental (Toca cualquier imagen para abrir)
                         </h4>
                     </div>
                     <div id="modalSubproductsList" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        </div>
+                    </div>
                 </div>
 
                 <div id="modalIndicationsSection" class="space-y-2.5">
@@ -205,7 +201,7 @@
                         <i class="fa-solid fa-notes-medical"></i> Aplicaciones e Indicaciones Clínicas
                     </h4>
                     <ul id="modalIndicationsList" class="flex flex-wrap gap-1.5">
-                        </ul>
+                    </ul>
                 </div>
 
                 <div class="p-3 bg-blue-950/40 border border-blue-800/40 rounded-xl text-[11px] sm:text-xs text-slate-400 flex items-start gap-2">
@@ -259,19 +255,19 @@
                             { 
                                 id: 'tessys-std',
                                 name: 'TESSYS® Std', 
-                                desc: 'El juego de instrumental estándar incluye todos los instrumentos necesarios (como pinzas de agarre, corte y punzones Endo-Kerrison) para un acceso mínimamente invasivo y seguro al canal espinal y la extracción de tejido discal, osteofitos o tejido cicatricial. Las guías y los tubos están codificados por colores para facilitar su manejo. El acceso a la patología se logra mediante la dilatación gradual del tejido blando bajo control radiológico. La dilatación del foramen intervertebral en el triángulo de Kambin también se realiza por etapas, utilizando fresas coronarias codificadas por colores o taladros óseos (foraminotomía).',
+                                desc: 'El juego de instrumental estándar incluye todos los instrumentos necesarios (como pinzas de agarre, corte y punzones Endo-Kerrison) para un acceso mínimamente invasivo y seguro al canal espinal y la extracción de tejido discal, osteofitos o tejido cicatricial. Las guías y los tubos están codificados por colores para facilitar su manejo.<br><br>El acceso a la patología se logra mediante la dilatación gradual del tejido blando bajo control radiológico. La dilatación del foramen intervertebral en el triángulo de Kambin también se realiza por etapas, utilizando fresas coronarias codificadas por colores o taladros óseos (foraminotomía).',
                                 img: 'https://www.joimax.com/wp-content/uploads/2025/10/TESSYS-Std-1.png'
                             },
                             { 
                                 id: 'tessys-transsap',
                                 name: 'TESSYS® TransSAP', 
-                                desc: 'TESSYS® TransSAP es el cuarto y más reciente miembro de la familia TESSYS®. Con sus descompresiones más completas y eficientes, complementa al versátil TESSYS® Std, al TESSYS® XT con mayor alcance y al TESSYS® Thx, específico para cirugía torácica. El método TransSAP emplea un abordaje adaptado a la columna vertebral y se dirige directamente a la apófisis articular superior. Esto permite una descompresión foraminal más extensa y, por consiguiente, proporciona la base óptima para la fusión endoscópica transforaminal.',
+                                desc: 'TESSYS® TransSAP es el cuarto y más reciente miembro de la familia TESSYS®. Con sus descompresiones más completas y eficientes, complementa al versátil TESSYS® Std, al TESSYS® XT con mayor alcance y al TESSYS® Thx, específico para cirugía torácica.<br><br>El método TransSAP emplea un abordaje adaptado a la columna vertebral y se dirige directamente a la apófisis articular superior. Esto permite una descompresión foraminal más extensa y, por consiguiente, proporciona la base óptima para la fusión endoscópica transforaminal.',
                                 img: 'https://www.joimax.com/wp-content/uploads/2026/06/TESSYS-TransSAP.png'
                             },
                             { 
                                 id: 'tessys-thx',
                                 name: 'TESSYS® Thx', 
-                                desc: 'Las vértebras con formas diferentes y las restricciones espaciales impuestas por las costillas y la pleura presentan al cirujano desafíos particulares a la hora de tratar las estenosis torácicas y las hernias discales. El instrumental TESSYS® Thx es idóneo para estos desafíos, especialmente para estenosis centrales y paramedianas y hernias discales. El vástago más estrecho del endoscopio permite su uso en espacios reducidos y el mayor ángulo óptico ofrece una excelente visualización de todas las estructuras en el campo quirúrgico.',
+                                desc: 'Las vértebras con formas diferentes y las restricciones espaciales impuestas por las costillas y la pleura presentan al cirujano desafíos particulares a la hora de tratar las estenosis torácicas y las hernias discales.<br><br>El instrumental TESSYS® Thx es idóneo para estos desafíos, especialmente para estenosis centrales y paramedianas y hernias discales. El vástago más estrecho del endoscopio permite su uso en espacios reducidos y el mayor ángulo óptico ofrece una excelente visualización de todas las estructuras en el campo quirúrgico.',
                                 img: 'https://www.joimax.com/wp-content/uploads/2025/10/TESSYS-THX-1.png'
                             },
                             { 
@@ -295,7 +291,7 @@
                             { 
                                 id: 'ilessys-std',
                                 name: 'iLESSYS® Standard', 
-                                desc: 'iLESSYS® le proporciona todo lo necesario para iniciarse en la endoscopia espinal interlaminar. El juego de instrumental estándar incluye el conjunto completo de instrumentos (por ejemplo , pinzas de agarre, corte y perforación) para un acceso seguro y mínimamente invasivo al canal espinal y la extracción de tejido discal, osteofitos o tejido cicatricial.<br><br>• Amplia gama de instrumentos para un acceso mínimamente invasivo seguro.<br>• Diversas pinzas, sondas de radiofrecuencia Vaporflex® y Vaporace® para la extracción de tejido discal.<br>• Su pequeño tamaño permite también el tratamiento de indicaciones cervicales.<br>• Amplias oportunidades de aplicación',
+                                desc: 'iLESSYS® le proporciona todo lo necesario para iniciarse en la endoscopia espinal interlaminar. El juego de instrumental estándar incluye el conjunto completo de instrumentos (por ejemplo , pinzas de agarre, corte y perforación) para un acceso seguro y mínimamente invasivo al canal espinal y la extracción de tejido discal, osteofitos o tejido cicatricial.<br><br>• Amplia gama de instrumentos para un acceso mínimamente invasivo seguro.<br>• Diversas pinzas, sondas de radiofrecuencia Vaporflex® y Vaporace® para la extracción de tejido discal .<br>• Su pequeño tamaño permite también el tratamiento de indicaciones cervicales.<br>• Amplias oportunidades de aplicación',
                                 img: 'https://www.joimax.com/wp-content/uploads/2025/10/Produktvorstellung_ilessys-std.png'
                             },
                             { 
@@ -337,7 +333,7 @@
                             { 
                                 id: 'multizyte-facet-cervical',
                                 name: 'MultiZYTE® FACET CERVICAL', 
-                                desc: 'Debido a la complejidad de la anatomía de la columna cervical y a la proximidad de sus estructuras, el tratamiento de las articulaciones facetarias cervicales sigue siendo un reto para muchos cirujanos. El sistema cervical MultiZYTE® Facet se diseñó exclusivamente para su aplicación en el cuello uterino. Sus instrumentos especiales, más delgados, están optimizados para las condiciones anatómicas, mientras que el uso de sondas bipolares Legato® permite una coagulación y vaporización precisas y seguras.',
+                                desc: 'Debido a la complejidad de la anatomía de la columna cervical y a la proximidad de sus estructuras, el tratamiento de las articulaciones facetarias cervicales sigue siendo un reto para muchos cirujanos.<br><br>El sistema cervical MultiZYTE® Facet se diseñó exclusivamente para su aplicación en el cuello uterino. Sus instrumentos especiales, más delgados, están optimizados para las condiciones anatómicas, mientras que el uso de sondas bipolares Legato® permite una coagulación y vaporización precisas y seguras.',
                                 img: 'https://www.joimax.com/wp-content/uploads/2026/08/MultiZYTE-Facet-Cervical.jpg'
                             }
                         ],
@@ -349,20 +345,20 @@
                         code: 'INTRADISCAL',
                         subtitle: 'Terapia Intradiscal',
                         icon: 'fa-bullseye',
-                        img: 'https://oyasama.es/wp-content/uploads/2021/12/intENTS-Lumbar-Instrumenten-Set-Endoskopie-Schmerztherapie-Rueckenschmerzen-joimax.jpg',
+                        img: 'https://www.joimax.com/wp-content/uploads/2024/04/intENTS-1536x772.png',
                         description: 'Abordaje mínimamente invasivo para descompresión intradiscal y modulación térmica del núcleo pulposo en discopatías dolorosas.',
                         subproducts: [
                             { 
                                 id: 'intents-lumbar',
-                                name: 'intENTS® Lumbar', 
-                                desc: 'Cánulas intradiscales lumbares con electrodos de coagulación de amplio alcance.',
-                                img: 'https://oyasama.es/wp-content/uploads/2021/12/intENTS-Lumbar-Instrumenten-Set-Endoskopie-Schmerztherapie-Rueckenschmerzen-joimax.jpg'
+                                name: 'intENTS® LUMBAR', 
+                                desc: 'El instrumental lumbar intENTS® incluye todos los instrumentos reutilizables necesarios para acceder al espacio intradiscal y reducir el volumen del núcleo pulposo. El vástago opcional Nucleoscope® permite al cirujano controlar el campo quirúrgico y el resultado del procedimiento mediante endoscopia.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2024/04/intENTS-1536x772.png'
                             },
                             { 
                                 id: 'intents-cervical',
-                                name: 'intENTS® Cervical', 
-                                desc: 'Cánulas ultra delgadas para descompresión cervical percutánea.',
-                                img: 'https://oyasama.es/wp-content/uploads/2021/12/intENTS-Lumbar-Instrumenten-Set-Endoskopie-Schmerztherapie-Rueckenschmerzen-joimax.jpg'
+                                name: 'intENTS® CERVICAL', 
+                                desc: 'Para la aplicación cervical se utiliza un acceso ventral. Los instrumentos de este conjunto están diseñados para adaptarse a las dimensiones más pequeñas de la columna cervical.',
+                                img: 'https://www.joimax.com/wp-content/uploads/2024/04/intENTS_Cervical-1536x772.png'
                             }
                         ],
                         indications: ['Dolor discogénico', 'Protrusión discal', 'Desgarro anular']
@@ -656,11 +652,10 @@
             const container = document.getElementById('catalogContainer');
             container.innerHTML = '';
 
-            catalogData.forEach((section, idx) => {
+            catalogData.forEach((section) => {
                 const secEl = document.createElement('div');
                 secEl.className = "bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-300";
 
-                // Header desplegable para cada sección
                 secEl.innerHTML = `
                     <button onclick="toggleSection('${section.sectionId}')" class="w-full px-4 sm:px-6 py-4 flex items-center justify-between bg-slate-900 hover:bg-slate-800/80 transition focus:outline-none text-left">
                         <div class="flex items-center space-x-3">
@@ -686,7 +681,6 @@
 
                 container.appendChild(secEl);
 
-                // Llenar cuadrícula de items de la sección
                 const grid = document.getElementById(`grid-${section.sectionId}`);
 
                 section.items.forEach(item => {
@@ -794,7 +788,6 @@
                 this.src = 'https://placehold.co/500x350/112240/64ffda?text=' + encodeURIComponent(item.title);
             };
 
-            // Lista de variantes interactivas con imágenes
             const subList = document.getElementById('modalSubproductsList');
             subList.innerHTML = '';
             item.subproducts.forEach(sub => {
@@ -803,19 +796,18 @@
                 subEl.onclick = () => selectVariantView(sub);
 
                 subEl.innerHTML = `
-                    <div class="w-14 h-14 rounded-lg bg-slate-900 border border-slate-800 overflow-hidden flex-shrink-0 relative">
-                        <img src="${sub.img}" onerror="this.src='https://placehold.co/150x150/112240/64ffda?text=Img'" alt="${sub.name}" class="w-full h-full object-cover group-hover:scale-110 transition">
+                    <div class="w-16 h-16 rounded-lg bg-slate-900 border border-slate-800 overflow-hidden flex-shrink-0 relative p-1 flex items-center justify-center">
+                        <img src="${sub.img}" onerror="this.src='https://placehold.co/150x150/112240/64ffda?text=Img'" alt="${sub.name}" class="w-full h-full object-contain group-hover:scale-110 transition duration-300">
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-bold text-xs text-white group-hover:text-medical-cyan transition truncate">${sub.name}</p>
                         <p class="text-[10px] text-slate-400 line-clamp-2 mt-0.5 leading-tight">${sub.desc.replace(/<br\s*[\/]?>/gi, " ")}</p>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-xs text-slate-600 group-hover:text-medical-cyan pr-1"></i>
+                    <i class="fa-solid fa-expand text-xs text-slate-600 group-hover:text-medical-cyan pr-1"></i>
                 `;
                 subList.appendChild(subEl);
             });
 
-            // Lista de indicaciones
             const indList = document.getElementById('modalIndicationsList');
             indList.innerHTML = '';
             item.indications.forEach(ind => {
@@ -861,7 +853,6 @@
                 ${variant.desc}
             `;
             
-            // Scroll suave a la imagen
             document.getElementById('modalImageContainer').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
